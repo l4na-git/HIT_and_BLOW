@@ -1,6 +1,7 @@
 # 問題
 
 import random
+from keybord import input_int
 
 
 class Quiz:
@@ -15,12 +16,7 @@ class Quiz:
     def quiz(self):
         while self.count <= self.max_charenge:
             # 入力
-            try:
-                print(f'{self.count}回目 数値を入力してください: ', end='')
-                user_int = int(input())
-            except ValueError:
-                print('エラー!! 数値を入力してください')
-                continue
+            user_int = input_int(f'{self.count}回目 数値を入力してください: ')
 
             # 入力範囲のチェック
             if user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
@@ -56,9 +52,7 @@ class Quiz:
 
 
 if __name__ == '__main__':
-    quiz1 = Quiz(digit=3, max_num=999)
-    digit = quiz1.digit
-    ans = quiz1.ans_str
-    print(digit)
+    quiz = Quiz(digit=3, max_num=999)
+    ans = quiz.ans_str
     print(f'テスト用: 正解は{ans}')
-    quiz1.quiz()
+    quiz.quiz()
