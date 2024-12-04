@@ -12,39 +12,46 @@ class Quiz:
         self.ans_str = f'{random.randint(0, self.max_num):0{digit}}'  # 当てる数値
         self.count = 1  # カウント回数の初期化
 
-    # 処理
-    def quiz(self):
-        while self.count <= self.max_charenge:
-            # 入力
+    def input_user(self):
+        while True:
             user_int = input_int(f'{self.count}回目 数値を入力してください: ')
-
             # 入力範囲のチェック
             if user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
                 print(f'エラー!! {'0' * self.digit}～{self.max_num}の範囲で入力してください')
                 continue
+            else:
+                # ユーザの入力を3桁の文字列に変換
+                self.user_str = f'{user_int:0{self.digit}}'
+                break
 
-            # hitとblowの判定
-            hit = 0  # 数値と桁位置の両方が同じ
-            blow = 0  # 数値のみ同じ
+    def hit_count(self):
+        self.hit = 0  # 数値と桁位置の両方が同じ
+        for i, (answer, user) in enumerate(zip(self.ans_str, self.user_str)):
+            if answer == user:
+                self.hit += 1
+        return self.hit
 
-            # ユーザの入力を3桁の文字列に変換
-            user_str = f'{user_int:0{self.digit}}'
+    def blow_count(self):
+        self.blow = 0  # 数値のみ同じ
+        # blowの判定
+        for digit in self.user_str:
+            if digit in self.ans_str:
+                self.blow += 1
+        self.blow -= self.hit  # hit分を引く
+        return self.blow
 
-            # hitの判定
-            for i, (answer, user) in enumerate(zip(self.ans_str, user_str)):
-                if answer == user:
-                    hit += 1
-            # blowの判定
-            for digit in user_str:
-                if digit in self.ans_str:
-                    blow += 1
-            blow -= hit  # hit分を引く
+    # 処理
+    def quiz(self):
+        while self.count <= self.max_charenge:
+            self.user = self.input_user()
+            self.hit = self.hit_count()
+            self.blow = self.blow_count()
 
-            if hit == self.digit:
+            if self.hit == self.digit:
                 print(f'\033[31m正解!! {self.count}回で当たりました!!\033[0m')
                 break
             else:
-                print(f'\033[34mhit: {hit} | blow: {blow}\033[0m')
+                print(f'\033[34mhit: {self.hit} | blow: {self.blow}\033[0m')
                 self.count += 1
         else:
             # 最大回数を超えた場合の処理
