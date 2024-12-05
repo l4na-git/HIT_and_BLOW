@@ -26,6 +26,7 @@ python main_menu.py
 ## ファイル構成
 ```
 .
+├──how_to.py       # 遊び方の説明
 ├──keybord.py      # キーボードから入力された値の処理
 ├──main_menu.py    # メニュー表示
 └──quiz.py         # ゲームの処理
