@@ -41,6 +41,7 @@ def execute_menu(menu_no):
         print(f'テスト用: 正解は{ans}')
         quiz_mode4.quiz()
     elif menu_no == 9:
+        print('遊んでくれてありがとう!')
         exit()
 
 
