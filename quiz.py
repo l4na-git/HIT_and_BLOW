@@ -1,4 +1,4 @@
-# 問題
+# クイズを出題
 
 import random
 from keybord import input_int
