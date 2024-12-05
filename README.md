@@ -22,3 +22,11 @@ cd hit_and_blow
 python main_menu.py
 ```
 メニューが表示されます。
+
+## ファイル構成
+```
+.
+├──keybord.py      # キーボードから入力された値の処理
+├──main_menu.py    # メニュー表示
+└──quiz.py         # ゲームの処理
+```
