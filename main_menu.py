@@ -1,6 +1,7 @@
 # メニュー表示
 
 from quiz import Quiz
+from how_to import how_to
 from keybord import input_int
 
 
@@ -18,19 +19,22 @@ def execute():
 
 def print_menu():
     print('=== Hit&Blow ===')
-    print('1. 3桁モード')
-    print('2. 4桁モード')
+    print('1. 遊び方')
+    print('2. 3桁モード')
+    print('3. 4桁モード')
     print('9. 終了')
 
 
 def execute_menu(menu_no):
     if menu_no == 1:
+        how_to()
+    elif menu_no == 2:
         print('*** 3桁モード ***')
         quiz_mode3 = Quiz(digit=3, max_num=999)
         ans = quiz_mode3.ans_str
         print(f'テスト用: 正解は{ans}')
         quiz_mode3.quiz()
-    elif menu_no == 2:
+    elif menu_no == 3:
         print('*** 4桁モード ***')
         quiz_mode4 = Quiz(digit=4, max_num=9999)
         ans = quiz_mode4.ans_str
