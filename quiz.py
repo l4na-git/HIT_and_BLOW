@@ -6,12 +6,13 @@ from keybord import input_int
 
 class Quiz:
     def __init__(self, digit, max_num) -> None:
-        self.digit = digit
+        self.digit = digit  # 桁数
         self.max_num = max_num  # 入力可能な最大値
         self.max_charenge = 20  # 入力できる回数
         self.ans_str = f'{random.randint(0, self.max_num):0{digit}}'  # 当てる数値
         self.count = 1  # カウント回数の初期化
 
+    # ユーザの解答の入力
     def input_user(self):
         while True:
             user_int = input_int(f'{self.count}回目 数値を入力してください: ')
@@ -24,6 +25,7 @@ class Quiz:
                 self.user_str = f'{user_int:0{self.digit}}'
                 break
 
+    # hitの回数をカウント
     def hit_count(self):
         self.hit = 0  # 数値と桁位置の両方が同じ
         for i, (answer, user) in enumerate(zip(self.ans_str, self.user_str)):
@@ -31,6 +33,7 @@ class Quiz:
                 self.hit += 1
         return self.hit
 
+    # blowの回数をカウント
     def blow_count(self):
         self.blow = 0  # 数値のみ同じ
         # blowの判定
@@ -40,7 +43,7 @@ class Quiz:
         self.blow -= self.hit  # hit分を引く
         return self.blow
 
-    # 処理
+    # 判定
     def quiz(self):
         while self.count <= self.max_charenge:
             self.user = self.input_user()
