@@ -10,7 +10,7 @@ class Quiz:
     CYAN = '\033[36m'  # テキストの色（シアン）
     END = '\033[0m'  # テキストの色（デフォルト）
 
-    def __init__(self, digit, max_num) -> None:
+    def __init__(self, digit: int, max_num: int) -> None:
         self.digit = digit  # 桁数
         self.max_num = max_num  # 入力可能な最大値
         self.ans_str = f'{random.randint(0, self.max_num):0{digit}}'  # 当てる数値
