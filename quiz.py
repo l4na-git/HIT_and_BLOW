@@ -5,15 +5,16 @@ from keybord import input_int
 
 
 class Quiz:
+    MAX_CHARENGE = 20  # 入力できる回数
+    RED = '\033[31m'  # テキストの色（赤）
+    CYAN = '\033[36m'  # テキストの色（シアン）
+    END = '\033[0m'  # テキストの色（デフォルト）
+
     def __init__(self, digit, max_num) -> None:
         self.digit = digit  # 桁数
         self.max_num = max_num  # 入力可能な最大値
-        self.max_charenge = 20  # 入力できる回数
         self.ans_str = f'{random.randint(0, self.max_num):0{digit}}'  # 当てる数値
         self.count = 1  # カウント回数の初期化
-        self.color_red = '\033[31m'  # テキストの色（赤）
-        self.color_cyan = '\033[36m'  # テキストの色（シアン）
-        self.color_end = '\033[0m'  # テキストの色（デフォルト）
 
     # ユーザの解答の入力
     def input_user(self):
@@ -48,16 +49,16 @@ class Quiz:
 
     # 判定
     def quiz(self):
-        while self.count <= self.max_charenge:
+        while self.count <= self.MAX_CHARENGE:
             self.user = self.input_user()
             self.hit = self.hit_count()
             self.blow = self.blow_count()
 
             if self.hit == self.digit:
-                print(f'{self.color_red}正解!! {self.count}回で当たりました!!{self.color_end}')
+                print(f'{self.RED}正解!! {self.count}回で当たりました!!{self.END}')
                 break
             else:
-                print(f'{self.color_cyan}hit: {self.hit} | blow: {self.blow}{self.color_end}')
+                print(f'{self.CYAN}hit: {self.hit} | blow: {self.blow}{self.END}')
                 self.count += 1
         else:
             # 最大回数を超えた場合の処理
