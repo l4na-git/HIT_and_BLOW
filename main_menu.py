@@ -49,6 +49,8 @@ def execute_menu(menu_no):
     elif menu_no == menu_exit:
         print('遊んでくれてありがとう!')
         exit()
+    else:
+        print('エラー!! もう一度入力してください')
 
 
 if __name__ == '__main__':
