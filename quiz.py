@@ -17,7 +17,7 @@ class Quiz:
         self.count = 1  # カウント回数の初期化
 
     # ユーザの解答の入力
-    def input_user(self):
+    def input_user(self) -> str:
         while True:
             user_int = input_int(f'{self.count}回目 数値を入力してください: ')
             # 入力範囲のチェック
@@ -30,7 +30,7 @@ class Quiz:
                 break
 
     # hitの回数をカウント
-    def hit_count(self):
+    def hit_count(self) -> int:
         self.hit = 0  # 数値と桁位置の両方が同じ
         for i, (answer, user) in enumerate(zip(self.ans_str, self.user_str)):
             if answer == user:
@@ -38,7 +38,7 @@ class Quiz:
         return self.hit
 
     # blowの回数をカウント
-    def blow_count(self):
+    def blow_count(self) -> int:
         self.blow = 0  # 数値のみ同じ
         # blowの判定
         for digit in self.user_str:
