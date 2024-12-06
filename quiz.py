@@ -64,9 +64,12 @@ class Quiz:
             # 最大回数を超えた場合の処理
             print(f'残念! 正解は{self.ans_str}でした。')
 
+    def main(self):
+        print(f'*** {self.digit}桁モード ***')
+        print(f'テスト用: {self.ans_str}')
+        self.quiz = self.quiz()
+
 
 if __name__ == '__main__':
     quiz = Quiz(digit=3, max_num=999)
-    ans = quiz.ans_str
-    print(f'テスト用: 正解は{ans}')
-    quiz.quiz()
+    quiz.main()
