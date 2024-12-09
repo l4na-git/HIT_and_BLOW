@@ -32,7 +32,7 @@ class Quiz:
     # hitの回数をカウント
     def hit_count(self) -> int:
         self.hit = 0  # 数値と桁位置の両方が同じ
-        for i, (answer, user) in enumerate(zip(self.ans_str, self.user_str)):
+        for answer, user in zip(self.ans_str, self.user_str):
             if answer == user:
                 self.hit += 1
         return self.hit
