@@ -1,11 +1,11 @@
 # クイズを出題
 
 import random
-from keybord import input_int
+from keyboard import input_int
 
 
 class Quiz:
-    MAX_CHARENGE = 20  # 入力できる回数
+    MAX_CHALLENGE = 20  # 入力できる回数
     RED = '\033[31m'  # テキストの色（赤）
     CYAN = '\033[36m'  # テキストの色（シアン）
     END = '\033[0m'  # テキストの色（デフォルト）
@@ -49,7 +49,7 @@ class Quiz:
 
     # 判定
     def quiz(self):
-        while self.count <= self.MAX_CHARENGE:
+        while self.count <= self.MAX_CHALLENGE:
             self.user = self.input_user()
             self.hit = self.hit_count()
             self.blow = self.blow_count()
