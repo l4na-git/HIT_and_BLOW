@@ -50,7 +50,7 @@ class Quiz:
     # 判定
     def quiz(self):
         while self.count <= self.MAX_CHALLENGE:
-            self.user = self.input_user()
+            self.input_user()
             self.hit = self.hit_count()
             self.blow = self.blow_count()
 
