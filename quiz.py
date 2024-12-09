@@ -22,7 +22,7 @@ class Quiz:
             user_int = input_int(f'{self.count}回目 数値を入力してください: ')
             # 入力範囲のチェック
             if user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
-                print(f'エラー!! {'0' * self.digit}～{self.max_num}の範囲で入力してください')
+                print(f'エラー!! {"0" * self.digit}～{self.max_num}の範囲で入力してください')
                 continue
             else:
                 # ユーザの入力を3桁の文字列に変換
