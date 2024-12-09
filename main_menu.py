@@ -2,7 +2,7 @@
 
 from quiz import Quiz
 from how_to import how_to
-from keybord import input_int
+from keyboard import input_int
 
 # メニュー番号
 menu_how_to = 1  # 遊び方

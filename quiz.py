@@ -1,7 +1,7 @@
 # クイズを出題
 
 import random
-from keybord import input_int
+from keyboard import input_int
 
 
 class Quiz:
