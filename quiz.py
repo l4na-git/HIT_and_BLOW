@@ -17,7 +17,7 @@ class Quiz:
         self.count = 1  # カウント回数の初期化
 
     # ユーザの解答の入力
-    def input_user(self) -> str:
+    def input_user(self) -> None:
         while True:
             user_int = input_int(f'{self.count}回目 数値を入力してください: ')
             # 入力範囲のチェック
