@@ -13,15 +13,32 @@ class Quiz:
     def __init__(self, digit: int, max_num: int) -> None:
         self.digit = digit  # 桁数
         self.max_num = max_num  # 入力可能な最大値
-        self.ans_str = f'{random.randint(0, self.max_num):0{digit}}'  # 当てる数値
+        # self.ans_str = f'{random.randint(0, self.max_num):0{digit}}'  # 当てる数値
+        self.ans_str = ""
         self.count = 1  # カウント回数の初期化
+
+    # 正解の生成
+    def create_ans(self) -> None:
+        while True:
+            ans_num = random.randint(0, 9)
+            # 数字が重複していないか
+            if str(ans_num) in self.ans_str:
+                continue
+            self.ans_str += str(ans_num)
+            if len(self.ans_str) == self.digit:
+                break
+        return self.ans_str
 
     # ユーザの解答の入力
     def input_user(self) -> None:
         while True:
             user_int = input_int(f'{self.count}回目 数値を入力してください: ')
+            # 数字が重複していないか
+            if len(str(input_int)) != len(set(str(input_int))):
+                print('エラー!! 同じ数字は含まれないようにしてください')
+                continue
             # 入力範囲のチェック
-            if user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
+            elif user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
                 print(f'エラー!! {"0" * self.digit}～{self.max_num}の範囲で入力してください')
                 continue
             else:
@@ -48,7 +65,10 @@ class Quiz:
         return self.blow
 
     # 判定
-    def quiz(self):
+    def main(self):
+        print(f'*** {self.digit}桁モード ***')
+        self.create_ans()
+        print(f'テスト用: {self.ans_str}')
         while self.count <= self.MAX_CHALLENGE:
             self.input_user()
             self.hit = self.hit_count()
@@ -63,11 +83,6 @@ class Quiz:
         else:
             # 最大回数を超えた場合の処理
             print(f'残念! 正解は{self.ans_str}でした。')
-
-    def main(self):
-        print(f'*** {self.digit}桁モード ***')
-        print(f'テスト用: {self.ans_str}')
-        self.quiz = self.quiz()
 
 
 if __name__ == '__main__':
