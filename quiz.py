@@ -1,6 +1,7 @@
 # クイズを出題
 
 import random
+import sound
 from keyboard import input_int
 
 
