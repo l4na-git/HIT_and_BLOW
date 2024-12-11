@@ -35,10 +35,10 @@ def execute_menu(menu_no):
     if menu_no == menu_how_to:
         how_to()
     elif menu_no == menu_3_digit:
-        quiz_mode3 = Quiz(digit=3, max_num=999)
+        quiz_mode3 = Quiz(digit=3)
         quiz_mode3.main()
     elif menu_no == menu_4_digit:
-        quiz_mode4 = Quiz(digit=4, max_num=9999)
+        quiz_mode4 = Quiz(digit=4)
         quiz_mode4.main()
     elif menu_no == menu_exit:
         print('遊んでくれてありがとう!')

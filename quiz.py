@@ -10,9 +10,8 @@ class Quiz:
     CYAN = '\033[36m'  # テキストの色（シアン）
     END = '\033[0m'  # テキストの色（デフォルト）
 
-    def __init__(self, digit: int, max_num: int) -> None:
+    def __init__(self, digit: int) -> None:
         self.digit = digit  # 桁数
-        self.max_num = max_num  # 入力可能な最大値
         self.ans_str = ""  # あてる数字
         self.user_str = ""  # ユーザの解答
         self.count = 1  # カウント回数の初期化
@@ -95,5 +94,5 @@ class Quiz:
 
 
 if __name__ == '__main__':
-    quiz = Quiz(digit=3, max_num=999)
+    quiz = Quiz(digit=3)
     quiz.main()
