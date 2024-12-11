@@ -74,7 +74,7 @@ class Quiz:
     def main(self):
         print(f'*** {self.digit}桁モード ***')
         self.create_ans()
-        print(f'テスト用: {self.ans_str}')
+        # print(f'テスト用: {self.ans_str}')
         while self.count <= self.MAX_CHALLENGE:
             self.input_user()
             print(f'あなたが入力した値: {self.user_str}')
@@ -88,6 +88,7 @@ class Quiz:
                 print(f'{self.CYAN}hit: {self.hit} | blow: {self.blow}{self.END}')
                 self.count += 1
                 self.user_str = ""
+                self.user_cnt = 1
         else:
             # 最大回数を超えた場合の処理
             print(f'残念! 正解は{self.ans_str}でした。')
