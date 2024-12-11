@@ -27,7 +27,16 @@ def play_wrong():
     play(r"audio\zannen.mp3")
 
 
+# 音量の調整
+def volume():
+    # input_volume = float(input('音量はどのくらいにしますか？: '))
+    pygame.mixer.init()
+    pygame.mixer.music.set_volume(0.5)
+    # play(r"audio\hometai.mp3")
+
+
 if __name__ == "__main__":
     # 音声ファイルのパス
     # play(r"audio\hometai.mp3")
-    play(r"audio\zannen.mp3")
+    # play(r"audio\zannen.mp3")
+    volume()
