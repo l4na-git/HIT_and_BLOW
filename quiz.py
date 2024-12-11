@@ -13,9 +13,9 @@ class Quiz:
     def __init__(self, digit: int, max_num: int) -> None:
         self.digit = digit  # 桁数
         self.max_num = max_num  # 入力可能な最大値
-        # self.ans_str = f'{random.randint(0, self.max_num):0{digit}}'  # 当てる数値
-        self.ans_str = ""
+        self.ans_str = ""  # あてる数字
         self.count = 1  # カウント回数の初期化
+        self.user_cnt = 1  # 入力する桁数(1=百の位)
 
     # 正解の生成
     def create_ans(self) -> None:
@@ -29,22 +29,25 @@ class Quiz:
                 break
         return self.ans_str
 
-    # ユーザの解答の入力
-    def input_user(self) -> None:
+    # ユーザの入力に対してのチェック
+    def input_check(self) -> str:
         while True:
-            user_int = input_int(f'{self.count}回目 数値を入力してください: ')
-            # 数字が重複していないか
-            if len(str(input_int)) != len(set(str(input_int))):
-                print('エラー!! 同じ数字は含まれないようにしてください')
-                continue
+            user_int = input_int(f'{self.count}回目 {self.user_cnt}つ目の数字を入力してください: ')
             # 入力範囲のチェック
-            elif user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
-                print(f'エラー!! {"0" * self.digit}～{self.max_num}の範囲で入力してください')
+            if user_int >= 10:  # 入力値が範囲外の時は入力しなおし
+                print('エラー!! 0～9の範囲で入力してください')
                 continue
             else:
                 # ユーザの入力を3桁の文字列に変換
                 self.user_str = f'{user_int:0{self.digit}}'
                 break
+        return self.user_str
+
+    # ユーザの解答の入力
+    def input_user(self) -> None:
+        for _ in range(self.digit):
+            self.input_check()
+            self.user_cnt += 1
 
     # hitの回数をカウント
     def hit_count(self) -> int:
