@@ -14,6 +14,7 @@ class Quiz:
         self.digit = digit  # 桁数
         self.max_num = max_num  # 入力可能な最大値
         self.ans_str = ""  # あてる数字
+        self.user_str = ""  # ユーザの解答
         self.count = 1  # カウント回数の初期化
         self.user_cnt = 1  # 入力する桁数(1=百の位)
 
@@ -31,6 +32,7 @@ class Quiz:
 
     # ユーザの入力に対してのチェック
     def input_check(self) -> str:
+        self.user_str_piece = ""
         while True:
             user_int = input_int(f'{self.count}回目 {self.user_cnt}つ目の数字を入力してください: ')
             # 入力範囲のチェック
@@ -39,15 +41,16 @@ class Quiz:
                 continue
             else:
                 # ユーザの入力を3桁の文字列に変換
-                self.user_str = f'{user_int:0{self.digit}}'
+                self.user_str_piece = str(user_int)
                 break
-        return self.user_str
+        return self.user_str_piece
 
     # ユーザの解答の入力
     def input_user(self) -> None:
         for _ in range(self.digit):
             self.input_check()
             self.user_cnt += 1
+            self.user_str += self.user_str_piece
 
     # hitの回数をカウント
     def hit_count(self) -> int:
@@ -74,6 +77,7 @@ class Quiz:
         print(f'テスト用: {self.ans_str}')
         while self.count <= self.MAX_CHALLENGE:
             self.input_user()
+            print(f'あなたが入力した値: {self.user_str}')
             self.hit = self.hit_count()
             self.blow = self.blow_count()
 
@@ -83,6 +87,7 @@ class Quiz:
             else:
                 print(f'{self.CYAN}hit: {self.hit} | blow: {self.blow}{self.END}')
                 self.count += 1
+                self.user_str = ""
         else:
             # 最大回数を超えた場合の処理
             print(f'残念! 正解は{self.ans_str}でした。')
