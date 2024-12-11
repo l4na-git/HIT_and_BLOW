@@ -38,6 +38,9 @@ class Quiz:
             if user_int >= 10:  # 入力値が範囲外の時は入力しなおし
                 print('エラー!! 0～9の範囲で入力してください')
                 continue
+            elif self.user_str.count(str(user_int)) != 0:
+                print('エラー!! 同じ数字は使用できません')
+                continue
             else:
                 # ユーザの入力を3桁の文字列に変換
                 self.user_str_piece = str(user_int)
@@ -73,7 +76,7 @@ class Quiz:
     def main(self):
         print(f'*** {self.digit}桁モード ***')
         self.create_ans()
-        # print(f'テスト用: {self.ans_str}')
+        print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
             self.input_user()
             print(f'あなたが入力した値: {self.user_str}')
