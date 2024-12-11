@@ -86,6 +86,7 @@ class Quiz:
 
             if self.hit == self.digit:
                 print(f'{self.RED}正解!! {self.count}回で当たりました!!{self.END}')
+                sound.play_correct()
                 break
             else:
                 print(f'{self.CYAN}hit: {self.hit} | blow: {self.blow}{self.END}')
@@ -95,6 +96,7 @@ class Quiz:
         else:
             # 最大回数を超えた場合の処理
             print(f'残念! 正解は{self.ans_str}でした。')
+            sound.play_wrong
 
 
 if __name__ == '__main__':
