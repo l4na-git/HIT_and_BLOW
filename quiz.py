@@ -33,8 +33,12 @@ class Quiz:
     def input_user(self) -> None:
         while True:
             user_int = input_int(f'{self.count}回目 数値を入力してください: ')
+            # 数字が重複していないか
+            if len(str(input_int)) != len(set(str(input_int))):
+                print('エラー!! 同じ数字は含まれないようにしてください')
+                continue
             # 入力範囲のチェック
-            if user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
+            elif user_int < 0 or user_int > self.max_num:  # 入力値が範囲外の時は入力しなおし
                 print(f'エラー!! {"0" * self.digit}～{self.max_num}の範囲で入力してください')
                 continue
             else:
