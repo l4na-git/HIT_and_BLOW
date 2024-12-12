@@ -1,4 +1,5 @@
 # 音を鳴らす
+import keyboard
 import os
 import pygame
 
@@ -29,9 +30,13 @@ def play_wrong():
 
 # 音量の調整
 def volume():
-    # input_volume = float(input('音量はどのくらいにしますか？: '))
+    print('音量を設定してください(0～100)')
     pygame.mixer.init()
-    pygame.mixer.music.set_volume(0.5)
+    # print(f'現在の音量は{}です')
+    input_volume = keyboard.input_int('音量を入力: ')
+    volume = input_volume / 100
+    pygame.mixer.music.set_volume(volume)
+    print(f'音量を{input_volume}に設定しました')
     # play(r"audio\hometai.mp3")
 
 
