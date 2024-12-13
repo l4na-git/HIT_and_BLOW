@@ -52,15 +52,15 @@ class Quiz:
     def input_user(self) -> None:
         for _ in range(self.digit):
             self.input_check()
-            self.user_cnt += 1
-            self.user_str += self.user_str_piece
+            self.user_cnt += 1  # 入力回数のカウントアップ
+            self.user_str += self.user_str_piece  # 入力した文字列の結合
 
     # hitの回数をカウント
     def hit_count(self) -> int:
         self.hit = 0  # 数値と桁位置の両方が同じ
         for answer, user in zip(self.ans_str, self.user_str):
             if answer == user:
-                self.hit += 1
+                self.hit += 1  # hitの回数をカウントアップ
         return self.hit
 
     # blowの回数をカウント
@@ -69,8 +69,8 @@ class Quiz:
         # blowの判定
         for digit in self.user_str:
             if digit in self.ans_str:
-                self.blow += 1
-        self.blow -= self.hit  # hit分を引く
+                self.blow += 1  # blowの回数をカウントアップ
+        self.blow -= self.hit  # hitの回数分を引く
         return self.blow
 
     # 判定
