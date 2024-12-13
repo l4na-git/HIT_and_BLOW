@@ -4,15 +4,9 @@ from quiz import Quiz
 from how_to import how_to
 from keyboard import input_int
 
-# 始めと最後の表示
-print_first = """
-======================================================================
-                            Hit&Blow
-======================================================================
-"""
-print_end = """
-======================================================================
-"""
+# 装飾とタイトル
+DECO = '======================================================================'
+TITLE = '                            Hit&Blow'
 
 # メニュー番号
 menu_how_to = 1  # 遊び方
@@ -34,12 +28,14 @@ def execute():
 
 
 def print_menu():
-    print(print_first)
+    print(DECO)
+    print(TITLE)
+    print(f'{DECO}\n')
     print(f'{menu_how_to}. 遊び方')
     print(f'{menu_3_digit}. 3桁モード')
     print(f'{menu_4_digit}. 4桁モード')
     print(f'{menu_exit}. 終了')
-    print(print_end)
+    print(f'\n{DECO}\n')
 
 
 def execute_menu(menu_no):
