@@ -19,7 +19,7 @@ class Quiz:
         self.user_cnt = 1  # 入力する桁数(1=百の位)
 
     # 正解の生成
-    def create_ans(self) -> None:
+    def create_ans(self) -> str:
         while True:
             ans_num = random.randint(0, 9)
             # 数字が重複していないか
