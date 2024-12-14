@@ -31,6 +31,7 @@ python main_menu.py
 ```
 .
 ├──audio           # 音源を保存
+├──conf            # 音量を記録
 ├──how_to.py       # 遊び方の説明
 ├──keyboard.py     # キーボードから入力された値の処理
 ├──main_menu.py    # メニュー表示
