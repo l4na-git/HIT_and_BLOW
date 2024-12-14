@@ -11,3 +11,14 @@ def input_int(prompt) -> int:
             print('エラー!! 整数で入力してください')
 
     return int(num)
+
+
+# キーボードからyまたはnを入力して返す
+# True:yが入力された場合 False:nが入力された場合
+def input_boolean(prompt):
+    while True:
+        str = input(f'{prompt} (y/n): ')
+        if str.lower() == 'y':
+            return True
+        elif str.lower() == 'n':
+            return False

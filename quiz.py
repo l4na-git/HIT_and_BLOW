@@ -2,11 +2,14 @@
 
 import random
 import sound
-from keyboard import input_int
+import main_menu
+from keyboard import input_int, input_boolean
+from time import sleep
 
 
 class Quiz:
     MAX_CHALLENGE = 10  # 入力できる回数
+    TARGET_TIME = 3  # カウントダウンする秒数
     RED = '\033[31m'  # テキストの色（赤）
     CYAN = '\033[36m'  # テキストの色（シアン）
     END = '\033[0m'  # テキストの色（デフォルト）
@@ -75,12 +78,27 @@ class Quiz:
         self.blow -= self.hit  # hitの回数分を引く
         return self.blow
 
+    # カウントダウン
+    def count_down(self):
+        print(' よーい...')
+        print('\033[?25l', end='')  # カーソル消去
+        for i in range(self.TARGET_TIME, 0, -1):
+            print(f'\b\b {i}', end='', flush=True)  # 即表示
+            sleep(1)  # 1秒間スリープ
+        print('\bスタート！')
+        print('\033[?25h', end='')  # カーソル表示
+
     # 判定
     def main(self):
         print(f'\n{self.DECO}')
         print(self.title)
         print(f'{self.DECO}\n')
         print(f'挑戦できる回数は{self.MAX_CHALLENGE}回です！')
+        if not input_boolean('準備は良いですか？'):
+            print('また挑戦してね！\n')
+            main_menu.execute()
+        print('それでは始めます')
+        self.count_down()
         self.create_ans()
         print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
