@@ -1,8 +1,7 @@
 # クイズを出題
 
 import random
-import sound
-import main_menu
+from sound import play_correct, play_wrong
 from keyboard import input_int, input_boolean
 from time import sleep
 
@@ -96,6 +95,7 @@ class Quiz:
         print(f'挑戦できる回数は{self.MAX_CHALLENGE}回です！')
         if not input_boolean('準備は良いですか？'):
             print('また挑戦してね！\n')
+            import main_menu
             main_menu.execute()
         print('それでは始めます')
         self.count_down()
@@ -110,7 +110,7 @@ class Quiz:
 
             if self.hit == self.digit:
                 print(f'{self.RED}正解!! {self.count}回で当たりました!!{self.END}')
-                sound.play_correct()
+                play_correct()
                 print(f'\n{self.DECO}\n')
                 break
             else:
@@ -121,7 +121,7 @@ class Quiz:
         else:
             # 最大回数を超えた場合の処理
             print(f'残念! 正解は{self.ans_str}でした。')
-            sound.play_wrong
+            play_wrong()
             print(f'\n{self.DECO}\n')
 
 
