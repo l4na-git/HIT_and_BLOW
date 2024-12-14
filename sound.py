@@ -14,19 +14,17 @@ def play(filename):
     pygame.mixer.init()
     with open(r'conf\sound.txt', 'r') as f:
         try:
-            for line in f:  # 全て表示（途中）
-                print(line, end='')
-                if not line:
-                    print(line)
+            volume = float(f.readline())
         except OSError:
             print('ファイルの読み込み中にエラーが発生しました。')
             pass
+    pygame.mixer.music.set_volume(volume)  # 音量を設定
     pygame.mixer.music.load(filename)
     pygame.mixer.music.play()
-    # print("音声を再生中...")
+    print("音声を再生中...")
     while pygame.mixer.music.get_busy():
         pass
-    # print("再生終了")
+    print("再生終了")
 
 
 # 正解のとき
@@ -41,27 +39,59 @@ def play_wrong():
 
 # 音量の調整
 def volume():
+    DECO = '*' * 70
+    TITLE = '                           音量の設定'
+    print(f'\n{DECO}')
+    print(TITLE)
+    print(f'{DECO}\n')
     print('音量を設定してください(0～100)')
     pygame.mixer.init()
-    # print(f'現在の音量は{}です')
+    with open(r'conf\sound.txt', 'r') as f:
+        try:
+            volume = float(f.readline()) * 100
+            print(f'現在の音量は{volume:.0f}%です')
+        except OSError:
+            print('ファイルの読み込み中にエラーが発生しました。')
+            pass
     input_volume = keyboard.input_int('音量を入力: ')
     volume = str(input_volume / 100)
-    # pygame.mixer.music.set_volume(volume)  # 音量を設定
     if not os.path.exists(r'conf\sound.txt'):
         print("ファイルが見つかりません: ")
         return
-    with open(r'conf\sound.txt', 'a') as f:
+    with open(r'conf\sound.txt', 'w') as f:
         try:
-            f.write(f'{volume}\n')
+            f.write(f'{volume}')
         except OSError:
             print('ファイルの書き込み中にエラーが発生しました。')
             pass
-    print(f'音量を{input_volume}に設定しました')
-    # play(r"audio\hometai.mp3")
+    print(f'音量を{input_volume}%に設定しました')
+    print(f'\n{DECO}\n')
+
+
+# 設定ファイルの作成
+def create_volume_file():
+    with open(r'conf\sound.txt', 'w') as f:
+        try:
+            f.write('0.3')  # デフォルトの音量
+        except OSError:
+            print('ファイルの書き込み中にエラーが発生しました。')
+            pass
+
+
+# ファイルの削除
+def delete_volume_file():
+    if os.path.exists(r'conf\sound.txt'):
+        os.remove(r'conf\sound.txt')
+        print('ファイルを削除しました')
+    else:
+        print('ファイルが見つかりません')
 
 
 if __name__ == "__main__":
     # 音声ファイルのパス
     # play(r"audio\hometai.mp3")
     # play(r"audio\zannen.mp3")
+    create_volume_file()
     volume()
+    play_correct()
+    # delete_volume_file()

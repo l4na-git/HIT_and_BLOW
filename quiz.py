@@ -10,7 +10,7 @@ class Quiz:
     RED = '\033[31m'  # テキストの色（赤）
     CYAN = '\033[36m'  # テキストの色（シアン）
     END = '\033[0m'  # テキストの色（デフォルト）
-    DECO = '**********************************************************************'
+    DECO = '*' * 70
 
     def __init__(self, digit: int) -> None:
         self.digit = digit  # 桁数
@@ -79,7 +79,6 @@ class Quiz:
     def main(self):
         print(f'\n{self.DECO}')
         print(self.title)
-        # print(f'*** {self.digit}桁モード ***')
         print(f'{self.DECO}\n')
         self.create_ans()
         print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
