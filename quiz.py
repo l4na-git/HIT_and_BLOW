@@ -6,7 +6,7 @@ from keyboard import input_int
 
 
 class Quiz:
-    MAX_CHALLENGE = 20  # 入力できる回数
+    MAX_CHALLENGE = 10  # 入力できる回数
     RED = '\033[31m'  # テキストの色（赤）
     CYAN = '\033[36m'  # テキストの色（シアン）
     END = '\033[0m'  # テキストの色（デフォルト）
@@ -80,6 +80,7 @@ class Quiz:
         print(f'\n{self.DECO}')
         print(self.title)
         print(f'{self.DECO}\n')
+        print(f'挑戦できる回数は{self.MAX_CHALLENGE}回です')
         self.create_ans()
         print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
