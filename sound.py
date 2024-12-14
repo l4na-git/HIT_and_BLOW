@@ -6,17 +6,28 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-# 共通
-def play(filename):
+# OSErrorのときに表示する文章
+ERROR_PRINT = 'ファイルの読み込み中にエラーが発生しました。'
+# 設定ファイルのパス
+CONF_FILE_PATH = r'conf\sound.txt'
+
+
+# ファイルがあるかどうかを確認
+def search_file(filename):
     if not os.path.exists(filename):
         print(f"ファイルが見つかりません: {filename}")
-        return
+        return False
+
+
+# 共通
+def play(filename):
+    search_file(filename)
     pygame.mixer.init()
-    with open(r'conf\sound.txt', 'r') as f:
+    with open(CONF_FILE_PATH, 'r') as f:
         try:
             volume = float(f.readline())
         except OSError:
-            print('ファイルの読み込み中にエラーが発生しました。')
+            print(ERROR_PRINT)
             pass
     pygame.mixer.music.set_volume(volume)  # 音量を設定
     pygame.mixer.music.load(filename)
@@ -46,23 +57,26 @@ def volume():
     print(f'{DECO}\n')
     print('音量を設定してください(0～100)')
     pygame.mixer.init()
-    with open(r'conf\sound.txt', 'r') as f:
+    with open(CONF_FILE_PATH, 'r') as f:
         try:
             volume = float(f.readline()) * 100
             print(f'現在の音量は{volume:.0f}%です')
         except OSError:
-            print('ファイルの読み込み中にエラーが発生しました。')
+            print(ERROR_PRINT)
             pass
-    input_volume = keyboard.input_int('音量を入力: ')
+    while True:
+        input_volume = keyboard.input_int('音量を入力: ')
+        if input_volume > 100:
+            print('数字は100以下で入力してください')
+            continue
+        break
     volume = str(input_volume / 100)
-    if not os.path.exists(r'conf\sound.txt'):
-        print("ファイルが見つかりません: ")
-        return
-    with open(r'conf\sound.txt', 'w') as f:
+    search_file(CONF_FILE_PATH)
+    with open(CONF_FILE_PATH, 'w') as f:
         try:
             f.write(f'{volume}')
         except OSError:
-            print('ファイルの書き込み中にエラーが発生しました。')
+            print(ERROR_PRINT)
             pass
     print(f'音量を{input_volume}%に設定しました')
     print(f'\n{DECO}\n')
@@ -70,18 +84,18 @@ def volume():
 
 # 設定ファイルの作成
 def create_volume_file():
-    with open(r'conf\sound.txt', 'w') as f:
+    with open(CONF_FILE_PATH, 'w') as f:
         try:
             f.write('0.3')  # デフォルトの音量
         except OSError:
-            print('ファイルの書き込み中にエラーが発生しました。')
+            print(ERROR_PRINT)
             pass
 
 
 # ファイルの削除
 def delete_volume_file():
-    if os.path.exists(r'conf\sound.txt'):
-        os.remove(r'conf\sound.txt')
+    if os.path.exists(CONF_FILE_PATH):
+        os.remove(CONF_FILE_PATH)
         print('ファイルを削除しました')
     else:
         print('ファイルが見つかりません')
