@@ -35,7 +35,7 @@ class Quiz:
     # ユーザの入力に対してのチェック
     def input_check(self) -> str:
         while True:
-            user_int = input_int(f'{self.count}回目 {self.user_cnt}つ目の数字を入力してください: ')
+            user_int = input_int(f'{self.user_cnt}つ目の数字を入力してください: ')
             # 入力範囲のチェック
             if user_int >= 10:  # 入力値が範囲外の時は入力しなおし
                 print('エラー!! 0～9の範囲で入力してください')
@@ -80,10 +80,11 @@ class Quiz:
         print(f'\n{self.DECO}')
         print(self.title)
         print(f'{self.DECO}\n')
-        print(f'挑戦できる回数は{self.MAX_CHALLENGE}回です')
+        print(f'挑戦できる回数は{self.MAX_CHALLENGE}回です！')
         self.create_ans()
         print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
+            print(f'\n------- {self.count}回目の挑戦！！ --------\n')
             self.input_user()
             print(f'あなたが入力した値: {self.user_str}')
             self.hit = self.hit_count()
