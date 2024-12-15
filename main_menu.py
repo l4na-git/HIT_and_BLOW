@@ -13,8 +13,9 @@ TITLE = '                            Hit&Blow'
 # メニュー番号
 menu_how_to = 1  # 遊び方
 volume_setting = 2  # 音量の設定
-menu_3_digit = 3  # 3桁モード
-menu_4_digit = 4  # 4桁モード
+show_log = 3  # ログの表示
+menu_3_digit = 4  # 3桁モード
+menu_4_digit = 5  # 4桁モード
 menu_exit = 9  # 終了
 
 
@@ -36,6 +37,7 @@ def print_menu():
     print(f'{DECO}\n')
     print(f'{menu_how_to}. 遊び方')
     print(f'{volume_setting}. 音量の設定')
+    print(f'{show_log}. ログを表示')
     print(f'{menu_3_digit}. 3桁モード')
     print(f'{menu_4_digit}. 4桁モード')
     print(f'{menu_exit}. 終了')
@@ -47,6 +49,10 @@ async def execute_menu(menu_no):
         how_to()
     elif menu_no == volume_setting:
         volume()
+    elif menu_no == show_log:
+        with open(r'log_data\guest.txt', 'r') as f:
+            print(f.read())
+        print('~' * 70)
     elif menu_no == menu_3_digit:
         quiz_mode3 = Quiz(digit=3)
         # quiz_mode3.main()

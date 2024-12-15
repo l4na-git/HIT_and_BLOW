@@ -70,4 +70,4 @@ async def animation_wrong():
     await animation(art_lines)
 
 if __name__ == "__main__":
-    asyncio.run(animation())
+    asyncio.run(animation_correct())

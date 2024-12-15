@@ -1,16 +1,17 @@
 # クイズを出題
 
 import random
-from sound import play_correct, play_wrong
+from sound import play_correct, play_wrong, play_count, play_quiz
 from keyboard import input_int, input_boolean
 from message import animation_correct, animation_wrong
-from time import sleep
+# from time import sleep
 import asyncio
 
 
 class Quiz:
-    MAX_CHALLENGE = 1  # 入力できる回数
+    MAX_CHALLENGE = 2  # 入力できる回数
     TARGET_TIME = 3  # カウントダウンする秒数
+    FILE_NAME = r'log_data\guest.txt'
     RED = '\033[31m'  # テキストの色（赤）
     CYAN = '\033[36m'  # テキストの色（シアン）
     END = '\033[0m'  # テキストの色（デフォルト）
@@ -80,14 +81,31 @@ class Quiz:
         return self.blow
 
     # カウントダウン
-    def count_down(self):
+    async def count_down(self):
         print(' よーい...')
         print('\033[?25l', end='')  # カーソル消去
         for i in range(self.TARGET_TIME, 0, -1):
             print(f'\b\b {i}', end='', flush=True)  # 即表示
-            sleep(1)  # 1秒間スリープ
+            # sleep(1)  # 1秒間スリープ
+            await play_count()
         print('\bスタート！')
         print('\033[?25h', end='')  # カーソル表示
+
+    # ファイルに記録（hitとblowの回数）
+    def write_file_count(self) -> None:
+        with open(self.FILE_NAME, 'a') as f:
+            f.write(f'hit: {self.hit} | blow: {self.blow} | your answer is {self.user_str}\n')
+
+    # ファイルに記録（正解）
+    def write_file_collect(self) -> None:
+        with open(self.FILE_NAME, 'a') as f:
+            f.write(f'correct answer in {self.count}\n\n')
+
+    # ファイルに記録（正解）
+    def write_file_fall(self) -> None:
+        with open(self.FILE_NAME, 'a') as f:
+            f.write("You couldn't answer correctly.\n")
+            f.write(f'The correct answer is {self.ans_str}\n\n')
 
     # 判定
     async def main(self):
@@ -100,21 +118,24 @@ class Quiz:
             import main_menu
             await main_menu.execute()
         print('それでは始めます')
-        self.count_down()
+        await self.count_down()
         self.create_ans()
         print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
             print(f'\n------- {self.count}回目の挑戦！！ --------\n')
+            await play_quiz()
             self.input_user()
             print(f'あなたが入力した値: {self.user_str}')
             self.hit = self.hit_count()
             self.blow = self.blow_count()
+            self.write_file_count()
 
             if self.hit == self.digit:
                 task1 = asyncio.create_task(animation_correct())
                 task2 = asyncio.create_task(play_correct())
                 await asyncio.gather(task1, task2)
                 print(f'{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
+                self.write_file_collect()
                 print(f'\n{self.DECO}\n')
                 break
             else:
@@ -128,6 +149,7 @@ class Quiz:
             task2 = asyncio.create_task(play_wrong())
             await asyncio.gather(task1, task2)
             print(f'残念! 正解は{self.ans_str}でした。')
+            self.write_file_fall()
             print(f'\n{self.DECO}\n')
 
 

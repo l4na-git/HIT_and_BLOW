@@ -31,7 +31,7 @@ async def play(filename):
     pygame.mixer.music.set_volume(volume)  # 音量を設定
     pygame.mixer.music.load(filename)
     pygame.mixer.music.play()
-    print("音声を再生中...")
+    # print("音声を再生中...")
     while pygame.mixer.music.get_busy():
         await asyncio.sleep(0.05)
         # pass
@@ -46,6 +46,16 @@ async def play_correct():
 # 不正解のとき
 async def play_wrong():
     await play(r"audio\zannen.mp3")
+
+
+# カウントダウンのとき
+async def play_count():
+    await play(r"audio\time.mp3")
+
+
+# 何回目の挑戦を表示するとき
+async def play_quiz():
+    await play(r"audio\kettei.mp3")
 
 
 # 音量の調整
