@@ -8,7 +8,7 @@ def input_int(prompt) -> int:
         if num.isdigit():  # 整数に変換できるかどうか
             break
         else:
-            print('エラー!! 整数で入力してください')
+            print('[エラー!!] 整数で入力してください')
 
     return int(num)
 
@@ -18,7 +18,7 @@ def input_int(prompt) -> int:
 def input_boolean(prompt):
     while True:
         str = input(f'{prompt} (y/n): ')
-        if str.lower() == 'y' or 'ｙ':
+        if str.lower() == 'y' or str.lower() == 'ｙ':
             return True
-        elif str.lower() == 'n' or 'ｎ':
+        elif str.lower() == 'n' or str.lower() == 'ｎ':
             return False
