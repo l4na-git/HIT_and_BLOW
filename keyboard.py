@@ -18,7 +18,7 @@ def input_int(prompt) -> int:
 def input_boolean(prompt):
     while True:
         str = input(f'{prompt} (y/n): ')
-        if str.lower() == 'y':
+        if str.lower() == 'y' or 'ｙ':
             return True
-        elif str.lower() == 'n':
+        elif str.lower() == 'n' or 'ｎ':
             return False
