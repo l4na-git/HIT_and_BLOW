@@ -2,6 +2,7 @@
 import keyboard
 import pygame
 import os
+import asyncio
 
 
 # OSErrorのときに表示する文章
@@ -18,7 +19,7 @@ def search_file(filename):
 
 
 # 共通
-def play(filename):
+async def play(filename):
     search_file(filename)
     pygame.mixer.init()
     with open(CONF_FILE_PATH, 'r') as f:
@@ -32,18 +33,19 @@ def play(filename):
     pygame.mixer.music.play()
     print("音声を再生中...")
     while pygame.mixer.music.get_busy():
-        pass
-    print("再生終了")
+        await asyncio.sleep(0.05)
+        # pass
+    # print("再生終了")
 
 
 # 正解のとき
-def play_correct():
-    play(r"audio\hometai.mp3")
+async def play_correct():
+    await play(r"audio\hometai.mp3")
 
 
 # 不正解のとき
-def play_wrong():
-    play(r"audio\zannen.mp3")
+async def play_wrong():
+    await play(r"audio\zannen.mp3")
 
 
 # 音量の調整
@@ -53,8 +55,8 @@ def volume():
     print(f'\n{DECO}')
     print(TITLE)
     print(f'{DECO}\n')
-    print('音量を設定してください(0～100)')
-    print('[注意！] パソコンでミュートになっている場合は音がなりません。')
+    print('音量を設定できます(0～100)')
+    print('[注意！] パソコンでミュートになっている場合は音がなりません。\n')
     pygame.mixer.init()
     with open(CONF_FILE_PATH, 'r') as f:
         try:
@@ -77,7 +79,7 @@ def volume():
         except OSError:
             print(ERROR_PRINT)
             pass
-    print(f'音量を{input_volume}%に設定しました')
+    print(f'\n音量を{input_volume}%に設定しました')
     print(f'\n{DECO}\n')
 
 
@@ -95,7 +97,7 @@ def create_volume_file():
 def delete_volume_file():
     if os.path.exists(CONF_FILE_PATH):
         os.remove(CONF_FILE_PATH)
-        print('ファイルを削除しました')
+        # print('ファイルを削除しました')
     else:
         print('ファイルが見つかりません')
 
@@ -106,5 +108,6 @@ if __name__ == "__main__":
     # play(r"audio\zannen.mp3")
     create_volume_file()
     volume()
-    play_correct()
+    # play_correct()
+    asyncio.run(play_correct())
     # delete_volume_file()

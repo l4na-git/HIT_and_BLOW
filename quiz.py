@@ -3,11 +3,13 @@
 import random
 from sound import play_correct, play_wrong
 from keyboard import input_int, input_boolean
+from message import animation_correct, animation_wrong
 from time import sleep
+import asyncio
 
 
 class Quiz:
-    MAX_CHALLENGE = 10  # 入力できる回数
+    MAX_CHALLENGE = 1  # 入力できる回数
     TARGET_TIME = 3  # カウントダウンする秒数
     RED = '\033[31m'  # テキストの色（赤）
     CYAN = '\033[36m'  # テキストの色（シアン）
@@ -40,11 +42,11 @@ class Quiz:
             user_int = input_int(f'{self.user_cnt}つ目の数字を入力してください: ')
             # 入力範囲のチェック
             if user_int >= 10:  # 入力値が範囲外の時は入力しなおし
-                print('エラー!! 0～9の範囲で入力してください')
+                print('[エラー!!] 0～9の範囲で入力してください')
                 continue
             # 数字が重複していないかチェック
             elif self.user_str.count(str(user_int)) != 0:
-                print('エラー!! 同じ数字は使用できません')
+                print('[エラー!!] 同じ数字は使用できません')
                 continue
             # ユーザの入力を文字列に変換
             else:
@@ -88,7 +90,7 @@ class Quiz:
         print('\033[?25h', end='')  # カーソル表示
 
     # 判定
-    def main(self):
+    async def main(self):
         print(f'\n{self.DECO}')
         print(self.title)
         print(f'{self.DECO}\n')
@@ -96,7 +98,7 @@ class Quiz:
         if not input_boolean('準備は良いですか？'):
             print('また挑戦してね！\n')
             import main_menu
-            main_menu.execute()
+            await main_menu.execute()
         print('それでは始めます')
         self.count_down()
         self.create_ans()
@@ -109,8 +111,10 @@ class Quiz:
             self.blow = self.blow_count()
 
             if self.hit == self.digit:
-                print(f'{self.RED}正解!! {self.count}回で当たりました!!{self.END}')
-                play_correct()
+                task1 = asyncio.create_task(animation_correct())
+                task2 = asyncio.create_task(play_correct())
+                await asyncio.gather(task1, task2)
+                print(f'{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
                 print(f'\n{self.DECO}\n')
                 break
             else:
@@ -120,11 +124,14 @@ class Quiz:
                 self.user_cnt = 1
         else:
             # 最大回数を超えた場合の処理
+            task1 = asyncio.create_task(animation_wrong())
+            task2 = asyncio.create_task(play_wrong())
+            await asyncio.gather(task1, task2)
             print(f'残念! 正解は{self.ans_str}でした。')
-            play_wrong()
             print(f'\n{self.DECO}\n')
 
 
 if __name__ == '__main__':
     quiz = Quiz(digit=3)
-    quiz.main()
+    asyncio.run(quiz.main())
+    # quiz.main()

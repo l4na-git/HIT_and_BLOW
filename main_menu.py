@@ -4,6 +4,7 @@ from quiz import Quiz
 from how_to import how_to
 from sound import create_volume_file, delete_volume_file, volume
 from keyboard import input_int
+import asyncio
 
 # 装飾とタイトル
 DECO = '=' * 70
@@ -17,7 +18,7 @@ menu_4_digit = 4  # 4桁モード
 menu_exit = 9  # 終了
 
 
-def execute():
+async def execute():
     while True:
         # メニューを表示
         print_menu()
@@ -26,7 +27,7 @@ def execute():
         num = input_int('メニュー番号を入力してください: ')
 
         # メニュー番号の機能を実行
-        execute_menu(num)
+        await execute_menu(num)
 
 
 def print_menu():
@@ -41,25 +42,27 @@ def print_menu():
     print(f'\n{DECO}\n')
 
 
-def execute_menu(menu_no):
+async def execute_menu(menu_no):
     if menu_no == menu_how_to:
         how_to()
     elif menu_no == volume_setting:
         volume()
     elif menu_no == menu_3_digit:
         quiz_mode3 = Quiz(digit=3)
-        quiz_mode3.main()
+        # quiz_mode3.main()
+        await quiz_mode3.main()
     elif menu_no == menu_4_digit:
         quiz_mode4 = Quiz(digit=4)
-        quiz_mode4.main()
+        # quiz_mode4.main()
+        await quiz_mode4.main()
     elif menu_no == menu_exit:
-        print('遊んでくれてありがとう!')
+        print('遊んでくれてありがとう!またね！')
         delete_volume_file()
         exit()
     else:
-        print('エラー!! もう一度入力してください')
+        print('[エラー!!] もう一度入力してください')
 
 
 if __name__ == '__main__':
     create_volume_file()
-    execute()
+    asyncio.run(execute())
