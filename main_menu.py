@@ -19,6 +19,7 @@ menu_4_digit = 5  # 4桁モード
 menu_exit = 9  # 終了
 
 
+# メイン関数
 async def execute():
     while True:
         # メニューを表示
@@ -31,6 +32,7 @@ async def execute():
         await execute_menu(num)
 
 
+# メニューの表示
 def print_menu():
     print(DECO)
     print(TITLE)
@@ -44,6 +46,7 @@ def print_menu():
     print(f'\n{DECO}\n')
 
 
+# メニュー番号の機能を実行
 async def execute_menu(menu_no):
     if menu_no == menu_how_to:
         main()
