@@ -3,7 +3,7 @@ import os
 import asyncio
 
 # 正解したとき
-collect_message = """
+CORRECT_MESSAGE = """
 ⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 ⡀⡀⡀⡀⡀⣿⡏⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⣿⡟⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⣿⡏⡀⡀⡀⡀⡀⡀⡀⡀⡀⢀⣿⣿⣿⣶⣶⣤⡤⡀⡀⡀
 ⡀⡀⡀⡀⡀⣿⡇⢀⣠⡄⡀⢤⣿⣦⡀⡀⡀⡀⡀⡀⢹⣧⡀⡀⡀⡀⣿⠁⡀⡀⡀⡀⡀⡀⡀⡀⣀⣀⣀⣀⣤⣤⣤⣶⣶⣿⣿⣿⣿⡀⡀⡀⡀⡀⡀⣿⡇⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⠉⠉⠛⠃⡀⡀⡀
@@ -19,7 +19,7 @@ collect_message = """
 
 
 # 正解できなかったとき
-fall_message = """
+FALL_MESSAGE = """
 ⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⣀⣀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⢀⣀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 ⡀⢸⣿⣿⣿⣿⣿⣿⡇⡀⢹⣿⠐⢿⣦⡀⡀⡀⡀⡀⡀⡀⡀⡀⢀⣿⠿⣷⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 ⡀⡀⡀⢰⣿⡀⡀⡀⣤⣤⣼⣿⣴⣶⣶⣶⡀⡀⡀⡀⡀⡀⣀⣾⡿⠁⡀⠈⢿⣷⣤⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
@@ -33,15 +33,8 @@ fall_message = """
 ⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 """
 
-
-# print(collect_message)
-# print(fall_message)
-
-# アートをリストに変換して1行ずつ操作可能にする
-art_lines = collect_message.splitlines()
-
 # アニメーションの設定
-delay = 0.04  # フレーム間の遅延時間
+DELAY = 0.04  # フレーム間の遅延時間
 
 
 # アニメーションのループ
@@ -52,7 +45,7 @@ async def animation(art_lines):
             os.system("cls" if os.name == "nt" else "clear")  # 画面をクリア
             for line in art_lines:
                 print(line[:step])  # 描画する範囲を増やしていく
-            await asyncio.sleep(delay)
+            await asyncio.sleep(DELAY)
     except KeyboardInterrupt:
         os.system("cls" if os.name == "nt" else "clear")
         print("アニメーションを終了しました")
@@ -60,13 +53,13 @@ async def animation(art_lines):
 
 # 正解のときのアニメーション
 async def animation_correct():
-    art_lines = collect_message.splitlines()
+    art_lines = CORRECT_MESSAGE.splitlines()
     await animation(art_lines)
 
 
 # 正解できなかったときのアニメーション
 async def animation_wrong():
-    art_lines = fall_message.splitlines()
+    art_lines = FALL_MESSAGE.splitlines()
     await animation(art_lines)
 
 if __name__ == "__main__":
