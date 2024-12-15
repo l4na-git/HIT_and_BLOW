@@ -9,7 +9,7 @@ import asyncio
 
 
 class Quiz:
-    MAX_CHALLENGE = 2  # 入力できる回数
+    MAX_CHALLENGE = 10  # 入力できる回数
     TARGET_TIME = 3  # カウントダウンする秒数
     FILE_NAME = r'log_data\guest.txt'
     RED = '\033[31m'  # テキストの色（赤）
@@ -43,7 +43,7 @@ class Quiz:
             user_int = input_int(f'{self.user_cnt}つ目の数字を入力してください: ')
             # 入力範囲のチェック
             if user_int >= 10:  # 入力値が範囲外の時は入力しなおし
-                print('[エラー!!] 0～9の範囲で入力してください')
+                print('[エラー!!] 数字は1つずつ入力してください')
                 continue
             # 数字が重複していないかチェック
             elif self.user_str.count(str(user_int)) != 0:
