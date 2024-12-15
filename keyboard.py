@@ -22,3 +22,12 @@ def input_boolean(prompt):
             return True
         elif str.lower() == 'n' or str.lower() == 'ｎ':
             return False
+
+
+# キーの入力
+def input_is_q():
+    while True:
+        str = input('戻るには"Q"を押してください: ')
+        if (str.lower() == 'q' or str.lower() == 'Q' or
+                str.lower() == 'ｑ' or str.lower() == 'Ｑ'):
+            return True
