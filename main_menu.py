@@ -18,7 +18,6 @@ menu_exit = 9  # 終了
 
 
 def execute():
-    create_volume_file()
     while True:
         # メニューを表示
         print_menu()
@@ -62,4 +61,5 @@ def execute_menu(menu_no):
 
 
 if __name__ == '__main__':
+    create_volume_file()
     execute()
