@@ -25,6 +25,7 @@ def input_boolean(prompt):
 
 
 # キーの入力
+# True:Qが入力された場合
 def input_is_q():
     while True:
         str = input('戻るには"Q"を押してください: ')
