@@ -54,6 +54,7 @@ def volume():
     print(TITLE)
     print(f'{DECO}\n')
     print('音量を設定してください(0～100)')
+    print('[注意！] パソコンでミュートになっている場合は音がなりません。')
     pygame.mixer.init()
     with open(CONF_FILE_PATH, 'r') as f:
         try:
