@@ -1,7 +1,7 @@
 # メニュー表示
 
 from quiz import Quiz
-from how_to import how_to
+from how_to import main
 from sound import create_volume_file, delete_volume_file, volume
 from keyboard import input_int
 import asyncio
@@ -46,7 +46,7 @@ def print_menu():
 
 async def execute_menu(menu_no):
     if menu_no == menu_how_to:
-        how_to()
+        main()
     elif menu_no == volume_setting:
         volume()
     elif menu_no == show_log:
