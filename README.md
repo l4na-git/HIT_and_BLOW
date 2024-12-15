@@ -32,9 +32,11 @@ python main_menu.py
 .
 ├──audio           # 音源を保存
 ├──conf            # 音量を記録
+├──log_data        # 遊んだ記録を保存
 ├──how_to.py       # 遊び方の説明
 ├──keyboard.py     # キーボードから入力された値の処理
 ├──main_menu.py    # メニュー表示
+├──message.py      # 正解、不正解に対してのアニメーション
 ├──quiz.py         # ゲームの処理
 └──sound.py        # 音を鳴らすための処理
 ```
