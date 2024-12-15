@@ -118,6 +118,5 @@ if __name__ == "__main__":
     # play(r"audio\zannen.mp3")
     create_volume_file()
     volume()
-    # play_correct()
     asyncio.run(play_correct())
     # delete_volume_file()

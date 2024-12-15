@@ -4,7 +4,6 @@ import random
 from sound import play_correct, play_wrong, play_count, play_quiz
 from keyboard import input_int, input_boolean
 from message import animation_correct, animation_wrong
-# from time import sleep
 import asyncio
 
 
@@ -120,7 +119,7 @@ class Quiz:
         print('それでは始めます')
         await self.count_down()
         self.create_ans()
-        print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
+        # print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
             print(f'\n------- {self.count}回目の挑戦！！ --------\n')
             await play_quiz()
@@ -156,4 +155,3 @@ class Quiz:
 if __name__ == '__main__':
     quiz = Quiz(digit=3)
     asyncio.run(quiz.main())
-    # quiz.main()
