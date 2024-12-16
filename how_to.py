@@ -31,7 +31,7 @@ def print_info():
 # メイン関数
 def main():
     print_info()
-    input_is_q()  # qが押されるまで待機
+    input_is_q()  # ユーザがqを押すまで待機
     print(f'\n{DECO}\n')
 
 
