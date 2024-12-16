@@ -2,7 +2,7 @@
 
 
 # キーボードから整数を入力して返す
-def input_int(prompt) -> int:
+def input_int(prompt: str) -> int:
     while True:
         num = input(prompt)
         if num.isdigit():
@@ -15,7 +15,7 @@ def input_int(prompt) -> int:
 
 # キーボードからyまたはnを入力して返す
 # True:yが入力された場合 False:nが入力された場合
-def input_boolean(prompt):
+def input_boolean(prompt: str) -> bool:
     while True:
         str = input(f'{prompt} (y/n): ')
         if str.lower() == 'y' or str.lower() == 'ｙ':
@@ -26,7 +26,7 @@ def input_boolean(prompt):
 
 # キーボードからQを入力して返す
 # True:Qが入力された場合
-def input_is_q():
+def input_is_q() -> bool:
     while True:
         str = input('戻るには"Q"を押してください: ')
         if (str.lower() == 'q' or str.lower() == 'Q' or
