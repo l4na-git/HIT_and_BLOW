@@ -4,6 +4,7 @@ from keyboard import input_is_q
 
 # 定数の定義
 DECO = '*' * 70
+DECO_CUT = '-' * 70
 TITLE = '                            遊び方'
 HOW_TO = """
 1. コンピュータがランダムな数字を生成します。
@@ -24,6 +25,7 @@ def main():
     print(f'{TITLE}')
     print(f'{DECO}')
     print(HOW_TO)
+    print(f'{DECO_CUT}\n')
     input_is_q()  # qが押されるまで待機
     print(f'\n{DECO}\n')
 
