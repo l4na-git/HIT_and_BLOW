@@ -106,6 +106,18 @@ class Quiz:
             f.write("You couldn't answer correctly.\n")
             f.write(f'The correct answer is {self.ans_str}\n\n')
 
+    # 再挑戦するかどうか
+    async def retry(self):
+        if not input_boolean('もう一度挑戦しますか？'):
+            print()
+            import main_menu
+            await main_menu.execute()
+        else:
+            self.ans_str = ""
+            self.user_cnt = 1
+            self.user_str = ""
+            await self.main()
+
     # 判定
     async def main(self):
         print(f'\n{self.DECO}')
@@ -136,7 +148,7 @@ class Quiz:
                 print(f'\n{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
                 self.write_file_collect()
                 print(f'\n{self.DECO}\n')
-                break
+                await self.retry()
             else:
                 print(f'{self.CYAN}hit: {self.hit} | blow: {self.blow}{self.END}')
                 self.count += 1
