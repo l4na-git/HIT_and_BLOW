@@ -119,7 +119,7 @@ class Quiz:
         print('それでは始めます')
         await self.count_down()
         self.create_ans()
-        # print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
+        print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
             print(f'\n------- {self.count}回目の挑戦！！ --------\n')
             await play_quiz()
@@ -133,7 +133,7 @@ class Quiz:
                 task1 = asyncio.create_task(animation_correct())
                 task2 = asyncio.create_task(play_correct())
                 await asyncio.gather(task1, task2)
-                print(f'{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
+                print(f'\n{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
                 self.write_file_collect()
                 print(f'\n{self.DECO}\n')
                 break
@@ -147,7 +147,7 @@ class Quiz:
             task1 = asyncio.create_task(animation_wrong())
             task2 = asyncio.create_task(play_wrong())
             await asyncio.gather(task1, task2)
-            print(f'残念! 正解は{self.ans_str}でした。')
+            print(f'\n残念! 正解は{self.ans_str}でした。')
             self.write_file_fall()
             print(f'\n{self.DECO}\n')
 
