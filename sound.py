@@ -1,5 +1,5 @@
 # 音を鳴らす
-import keyboard
+import keyboard_utils as keyboard
 import pygame
 import os
 import asyncio
@@ -14,7 +14,7 @@ TITLE = '                           音量の設定'
 
 
 # ファイルがあるかどうかを確認
-def search_file(filename):
+def search_file(filename: str) -> bool:
     if not os.path.exists(filename):
         print(f"ファイルが見つかりません: {filename}")
         return False

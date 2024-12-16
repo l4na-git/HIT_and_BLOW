@@ -1,5 +1,5 @@
 # ゲームの説明
-from keyboard import input_is_q
+from keyboard_utils import input_is_q
 
 
 # 定数の定義

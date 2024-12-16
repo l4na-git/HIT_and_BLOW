@@ -3,7 +3,7 @@
 from quiz import Quiz
 from how_to import main
 from sound import create_volume_file, delete_volume_file, volume
-from keyboard import input_int
+from keyboard_utils import input_int
 import asyncio
 
 # 装飾とタイトル
