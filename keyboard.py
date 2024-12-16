@@ -5,7 +5,7 @@
 def input_int(prompt) -> int:
     while True:
         num = input(prompt)
-        if num.isdigit():  # 整数に変換できるかどうか
+        if num.isdigit():
             break
         else:
             print('[エラー!!] 整数で入力してください')
@@ -24,7 +24,7 @@ def input_boolean(prompt):
             return False
 
 
-# キーの入力
+# キーボードからQを入力して返す
 # True:Qが入力された場合
 def input_is_q():
     while True:
@@ -32,3 +32,5 @@ def input_is_q():
         if (str.lower() == 'q' or str.lower() == 'Q' or
                 str.lower() == 'ｑ' or str.lower() == 'Ｑ'):
             return True
+        else:
+            print('[エラー!!] 指定されたキーを入力してください')
