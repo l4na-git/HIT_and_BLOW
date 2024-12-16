@@ -1,5 +1,4 @@
 # 表示するメッセージ
-import os
 import asyncio
 
 # 正解したとき
@@ -34,21 +33,15 @@ FALL_MESSAGE = """
 """
 
 # アニメーションの設定
-DELAY = 0.04  # フレーム間の遅延時間
+DELAY = 0.23  # フレーム間の遅延時間
 
 
-# アニメーションのループ
+# アニメーションの表示
 async def animation(art_lines):
-    try:
-        max_width = max(len(line) for line in art_lines)  # アート全体の最大幅を取得
-        for step in range(1, max_width + 1):  # 1文字ずつ描画を増やす
-            os.system("cls" if os.name == "nt" else "clear")  # 画面をクリア
-            for line in art_lines:
-                print(line[:step])  # 描画する範囲を増やしていく
-            await asyncio.sleep(DELAY)
-    except KeyboardInterrupt:
-        os.system("cls" if os.name == "nt" else "clear")
-        print("アニメーションを終了しました")
+    for i in range(len(art_lines)):
+        print(art_lines[i])
+        await asyncio.sleep(DELAY)
+    await asyncio.sleep(1)
 
 
 # 正解のときのアニメーション
