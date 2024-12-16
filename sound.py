@@ -40,7 +40,7 @@ async def play(filename):
 
 # 正解のとき
 async def play_correct():
-    await play(r"audio\hometai.mp3")
+    await play(r"audio\collect.mp3")
 
 
 # 不正解のとき
