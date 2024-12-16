@@ -1,7 +1,7 @@
 # 表示するメッセージ
 import asyncio
 
-# 正解したとき
+# 正解したときに表示するもの
 CORRECT_MESSAGE = """
 ⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 ⡀⡀⡀⡀⡀⣿⡏⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⣿⡟⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⣿⡏⡀⡀⡀⡀⡀⡀⡀⡀⡀⢀⣿⣿⣿⣶⣶⣤⡤⡀⡀⡀
@@ -17,8 +17,8 @@ CORRECT_MESSAGE = """
 """
 
 
-# 正解できなかったとき
-FALL_MESSAGE = """
+# 正解できなかったときに表示するもの
+WRONG_MESSAGE = """
 ⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⣀⣀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⢀⣀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 ⡀⢸⣿⣿⣿⣿⣿⣿⡇⡀⢹⣿⠐⢿⣦⡀⡀⡀⡀⡀⡀⡀⡀⡀⢀⣿⠿⣷⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 ⡀⡀⡀⢰⣿⡀⡀⡀⣤⣤⣼⣿⣴⣶⣶⣶⡀⡀⡀⡀⡀⡀⣀⣾⡿⠁⡀⠈⢿⣷⣤⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
@@ -32,11 +32,10 @@ FALL_MESSAGE = """
 ⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀⡀
 """
 
-# アニメーションの設定
 DELAY = 0.23  # フレーム間の遅延時間
 
 
-# アニメーションの表示
+# 一定の間隔で表示する
 async def animation(art_lines):
     for i in range(len(art_lines)):
         print(art_lines[i])
@@ -44,15 +43,15 @@ async def animation(art_lines):
     await asyncio.sleep(1)
 
 
-# 正解のときのアニメーション
+# 正解のときに呼び出すもの
 async def animation_correct():
     art_lines = CORRECT_MESSAGE.splitlines()
     await animation(art_lines)
 
 
-# 正解できなかったときのアニメーション
+# 正解できなかったときに呼び出すもの
 async def animation_wrong():
-    art_lines = FALL_MESSAGE.splitlines()
+    art_lines = WRONG_MESSAGE.splitlines()
     await animation(art_lines)
 
 if __name__ == "__main__":
