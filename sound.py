@@ -5,10 +5,12 @@ import os
 import asyncio
 
 
-# OSErrorのときに表示する文章
+# 定数の定義
 ERROR_PRINT = 'ファイルの読み込み中にエラーが発生しました。'
-# 設定ファイルのパス
 CONF_FILE_PATH = r'conf\sound.txt'
+DEFAULT_VOLUME = 0.3
+DECO = '*' * 70
+TITLE = '                           音量の設定'
 
 
 # ファイルがあるかどうかを確認
@@ -60,8 +62,6 @@ async def play_quiz():
 
 # 音量の調整
 def volume():
-    DECO = '*' * 70
-    TITLE = '                           音量の設定'
     print(f'\n{DECO}')
     print(TITLE)
     print(f'{DECO}\n')
