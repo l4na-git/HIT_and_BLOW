@@ -38,3 +38,8 @@ def input_is_q() -> bool:
             return True
         else:
             print('[エラー!!] 指定されたキーを入力してください')
+
+
+# escを押したかどうか
+def press_is_esc():
+    keyboard.add_hotkey('space', greeting)
