@@ -1,5 +1,6 @@
 # 音を鳴らす
 import keyboard_utils as keyboard
+from file_utils import search_file
 import pygame
 import os
 import asyncio
@@ -12,13 +13,7 @@ DEFAULT_VOLUME = 0.3
 DECO = '*' * 70
 TITLE = '                           音量の設定'
 
-
-# ファイルがあるかどうかを確認
-def search_file(filename: str) -> bool:
-    if not os.path.exists(filename):
-        print(f"ファイルが見つかりません: {filename}")
-        return False
-
+# def read_volume_file():
 
 # 共通
 async def play(filename):
