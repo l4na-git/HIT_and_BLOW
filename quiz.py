@@ -32,6 +32,7 @@ class Quiz:
             if str(ans_num) in self.ans_str:
                 continue
             self.ans_str += str(ans_num)
+            # 指定した桁数分生成したか
             if len(self.ans_str) == self.digit:
                 break
         return self.ans_str
@@ -40,11 +41,11 @@ class Quiz:
     def input_check(self) -> str:
         while True:
             user_int = input_int(f'{self.user_cnt}つ目の数字を入力してください: ')
-            # 入力範囲のチェック
-            if user_int >= 10:  # 入力値が範囲外の時は入力しなおし
+            # 入力された数字は1つか
+            if user_int >= 10:
                 print('[エラー!!] 数字は1つずつ入力してください')
                 continue
-            # 数字が重複していないかチェック
+            # 数字が重複していないか
             elif self.user_str.count(str(user_int)) != 0:
                 print('[エラー!!] 同じ数字は使用できません')
                 continue
@@ -61,18 +62,17 @@ class Quiz:
             self.user_cnt += 1  # 入力回数のカウントアップ
             self.user_str += self.user_str_piece  # 入力した文字列の結合
 
-    # hitの回数をカウント
+    # hit(数字と桁位置の両方が同じ)の回数をカウント
     def hit_count(self) -> int:
-        self.hit = 0  # 数値と桁位置の両方が同じ
+        self.hit = 0  # 
         for answer, user in zip(self.ans_str, self.user_str):
             if answer == user:
                 self.hit += 1  # hitの回数をカウントアップ
         return self.hit
 
-    # blowの回数をカウント
+    # blow(数字のみ同じ)の回数をカウント
     def blow_count(self) -> int:
-        self.blow = 0  # 数値のみ同じ
-        # blowの判定
+        self.blow = 0
         for digit in self.user_str:
             if digit in self.ans_str:
                 self.blow += 1  # blowの回数をカウントアップ
@@ -100,7 +100,7 @@ class Quiz:
         with open(self.FILE_NAME, 'a') as f:
             f.write(f'correct answer in {self.count}\n\n')
 
-    # ファイルに記録（正解）
+    # ファイルに記録（不正解）
     def write_file_fall(self) -> None:
         with open(self.FILE_NAME, 'a') as f:
             f.write("You couldn't answer correctly.\n")
@@ -131,7 +131,7 @@ class Quiz:
         print('それでは始めます')
         await self.count_down()
         self.create_ans()
-        # print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
+        print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
             print(f'\n------- {self.count}回目の挑戦！！ --------\n')
             await play_quiz()
@@ -162,6 +162,7 @@ class Quiz:
             print(f'\n残念! 正解は{self.ans_str}でした。')
             self.write_file_fall()
             print(f'\n{self.DECO}\n')
+            await self.retry()
 
 
 if __name__ == '__main__':
