@@ -2,7 +2,7 @@
 
 from quiz import Quiz
 from how_to import main
-from sound import create_volume_file, delete_volume_file, volume
+from sound import set_file, delete_volume_file, volume
 from keyboard_utils import input_int
 import asyncio
 
@@ -73,5 +73,5 @@ async def execute_menu(menu_no):
 
 
 if __name__ == '__main__':
-    create_volume_file()
+    set_file()
     asyncio.run(execute())
