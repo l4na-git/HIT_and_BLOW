@@ -71,13 +71,8 @@ def volume():
         except OSError:
             print(ERROR_PRINT)
             pass
-    while True:
-        input_volume = keyboard.input_int('音量を入力: ')
-        if input_volume > 100:
-            print('数字は100以下で入力してください')
-            continue
-        break
-    volume = str(input_volume / 100)
+    set_volume = keyboard.input_volume('音量を入力: ')
+    volume = str(set_volume / 100)
     search_file(CONF_FILE_PATH)
     with open(CONF_FILE_PATH, 'w') as f:
         try:
@@ -85,7 +80,7 @@ def volume():
         except OSError:
             print(ERROR_PRINT)
             pass
-    print(f'\n音量を{input_volume}%に設定しました')
+    print(f'\n音量を{set_volume}%に設定しました')
     print(f'\n{DECO}\n')
 
 

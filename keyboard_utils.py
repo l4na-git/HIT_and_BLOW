@@ -38,3 +38,13 @@ def input_is_q() -> bool:
             return True
         else:
             print('[エラー!!] 指定されたキーを入力してください')
+
+
+# キーボードから音量を入力して返す
+def input_volume(prompt):
+    while True:
+        input_volume = input_int(prompt)
+        if input_volume > 100:
+            print('数字は100以下で入力してください')
+            continue
+        return input_volume
