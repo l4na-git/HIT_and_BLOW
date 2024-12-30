@@ -58,11 +58,9 @@ async def execute_menu(menu_no):
         print('~' * 70)
     elif menu_no == menu_3_digit:
         quiz_mode3 = Quiz(digit=3)
-        # quiz_mode3.main()
         await quiz_mode3.main()
     elif menu_no == menu_4_digit:
         quiz_mode4 = Quiz(digit=4)
-        # quiz_mode4.main()
         await quiz_mode4.main()
     elif menu_no == menu_exit:
         print('遊んでくれてありがとう!またね！')
