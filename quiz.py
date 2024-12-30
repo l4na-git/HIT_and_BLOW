@@ -6,6 +6,8 @@ from keyboard_utils import input_boolean
 from message import animation_correct, animation_wrong
 import asyncio
 import keyboard
+import file_utils
+from datetime import datetime
 
 
 class Quiz:
@@ -24,6 +26,8 @@ class Quiz:
         self.count = 1  # カウント回数の初期化
         self.user_cnt = 1  # 入力する桁数(1=百の位)
         self.title = f'                            {self.digit}桁モード'  # タイトル
+        self.clear = False
+        self.log = []  # ログ
 
     # 正解の生成
     def create_ans(self) -> str:
@@ -98,22 +102,18 @@ class Quiz:
         print('\033[?25h', end='')  # カーソル表示
 
     # ファイルに記録（hitとblowの回数）
-    def write_file_count(self) -> None:
-        with open(self.FILE_NAME, 'a') as f:
-            f.write(
-                f'hit: {self.hit} | blow: {self.blow} | your answer is {
-                    self.user_str}\n')
+    def append_log(self) -> None:
+        log_data = {"input": self.user_str, "hit": self.hit, "blow": self.blow}
+        self.log.append(log_data)
 
-    # ファイルに記録（正解）
-    def write_file_collect(self) -> None:
-        with open(self.FILE_NAME, 'a') as f:
-            f.write(f'correct answer in {self.count}\n\n')
+    def write_log(self) -> None:
+        log = {}
+        log["datetime"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        log["answer"] = int(self.ans_str)
+        log["clear"] = self.clear
+        log["log"] = self.log
+        file_utils.add_log(log)
 
-    # ファイルに記録（不正解）
-    def write_file_fall(self) -> None:
-        with open(self.FILE_NAME, 'a') as f:
-            f.write("You couldn't answer correctly.\n")
-            f.write(f'The correct answer is {self.ans_str}\n\n')
 
     # 再挑戦するかどうか
     async def retry(self):
@@ -154,15 +154,16 @@ class Quiz:
             print(f'あなたが入力した値: {self.user_str}')
             self.hit = self.hit_count()
             self.blow = self.blow_count()
-            self.write_file_count()
+            self.append_log()
 
             if self.hit == self.digit:
                 task1 = asyncio.create_task(animation_correct())
                 task2 = asyncio.create_task(play_correct())
                 await asyncio.gather(task1, task2)
                 print(f'\n{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
-                self.write_file_collect()
                 print(f'\n{self.DECO}\n')
+                self.clear = True
+                self.write_log()
                 await self.retry()
             else:
                 print(
@@ -177,8 +178,8 @@ class Quiz:
             task2 = asyncio.create_task(play_wrong())
             await asyncio.gather(task1, task2)
             print(f'\n残念! 正解は{self.ans_str}でした。')
-            self.write_file_fall()
             print(f'\n{self.DECO}\n')
+            self.write_log()
             await self.retry()
 
 
