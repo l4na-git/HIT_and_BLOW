@@ -21,11 +21,11 @@ def write_volume_file(num: float, CONF_FILE_PATH: str, ERROR_PRINT: str):
 
 
 def read_log():
-    with open("log_data/test.json", 'r') as f:
+    with open("log_data/guest.json", 'r') as f:
         return json.load(f)
 
 def add_log(data):
-    with open("log_data/test.json", 'r+') as f:
+    with open("log_data/guest.json", 'r+') as f:
         try:
             log_data = json.load(f)
         except json.decoder.JSONDecodeError:
