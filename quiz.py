@@ -41,8 +41,6 @@ class Quiz:
     # ユーザの入力に対してのチェック
     async def input_check(self) -> str:
         while True:
-            if keyboard.is_pressed('esc'):
-                await self.back_menu()
             # 入力された数字は1つか
             if len(self.user_input) != 1 or not self.user_input.isdigit():
                 print('[エラー!!] 数字は1つずつ入力してください')
