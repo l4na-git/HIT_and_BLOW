@@ -14,7 +14,6 @@ DEFAULT_VOLUME = 0.3
 DECO = '*' * 70
 TITLE = '                           音量の設定'
 
-# def read_volume_file():
 
 # 共通
 async def play(filename):
