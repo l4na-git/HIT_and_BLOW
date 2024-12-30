@@ -38,33 +38,30 @@ class Quiz:
                 break
         return self.ans_str
 
-    # ユーザの入力に対してのチェック
-    async def input_check(self) -> str:
-        while True:
-            # 入力された数字は1つか
-            if len(self.user_input) != 1 or not self.user_input.isdigit():
-                print('[エラー!!] 数字は1つずつ入力してください')
-                continue
-            # 数字が重複していないか
-            elif self.user_str.count(str(self.user_input)) != 0:
-                print('[エラー!!] 同じ数字は使用できません')
-                continue
-            # ユーザの入力を文字列に変換
-            else:
-                break
-        # return self.user_str_piece
+
+    async def input_check(self, input_data: str) -> None:
+        if len(input_data) != self.digit:
+            raise Exception('[エラー!!] 3桁で入力してください')
+        # 入力された数字が重複されていないか確認
+        if len(set(input_data)) != self.digit:
+            raise Exception('[エラー!!] 重複しない数字を使用してください')
+
 
     # ユーザの解答の入力
     async def input_user(self) -> None:
-        for _ in range(self.digit):
-            self.user_input = await self.async_input(
-                f'{self.user_cnt}つ目の数字を入力してください: ')
-            await self.input_check()
-            self.user_cnt += 1  # 入力回数のカウントアップ
-            self.user_str += str(self.user_input)  # 入力した文字列の結合
+        while True:
+            # ユーザーの入力を取得
+            input_int = await self.async_input("回答を入力してください: ")
+            try:
+                await self.input_check(input_int)
+                break
+            except Exception as e:
+                print(e)
+                continue
+        self.user_str = str(input_int)
 
     # 非同期で入力を受け付ける
-    async def async_input(self, prompt: str) -> int:
+    async def async_input(self, prompt: str) -> str:
         print(prompt, end="", flush=True)
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, input)
