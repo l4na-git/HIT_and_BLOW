@@ -2,9 +2,10 @@
 
 import random
 from sound import play_correct, play_wrong, play_count, play_quiz
-from keyboard_utils import input_int, input_boolean
+from keyboard_utils import input_boolean
 from message import animation_correct, animation_wrong
 import asyncio
+import keyboard
 
 
 class Quiz:
@@ -32,47 +33,55 @@ class Quiz:
             if str(ans_num) in self.ans_str:
                 continue
             self.ans_str += str(ans_num)
+            # 指定した桁数分生成したか
             if len(self.ans_str) == self.digit:
                 break
         return self.ans_str
 
     # ユーザの入力に対してのチェック
-    def input_check(self) -> str:
+    async def input_check(self) -> str:
         while True:
-            user_int = input_int(f'{self.user_cnt}つ目の数字を入力してください: ')
-            # 入力範囲のチェック
-            if user_int >= 10:  # 入力値が範囲外の時は入力しなおし
+            if keyboard.is_pressed('esc'):
+                await self.back_menu()
+            # 入力された数字は1つか
+            if len(self.user_input) != 1 or not self.user_input.isdigit():
                 print('[エラー!!] 数字は1つずつ入力してください')
                 continue
-            # 数字が重複していないかチェック
-            elif self.user_str.count(str(user_int)) != 0:
+            # 数字が重複していないか
+            elif self.user_str.count(str(self.user_input)) != 0:
                 print('[エラー!!] 同じ数字は使用できません')
                 continue
             # ユーザの入力を文字列に変換
             else:
-                self.user_str_piece = str(user_int)
                 break
-        return self.user_str_piece
+        # return self.user_str_piece
 
     # ユーザの解答の入力
-    def input_user(self) -> None:
+    async def input_user(self) -> None:
         for _ in range(self.digit):
-            self.input_check()
+            self.user_input = await self.async_input(
+                f'{self.user_cnt}つ目の数字を入力してください: ')
+            await self.input_check()
             self.user_cnt += 1  # 入力回数のカウントアップ
-            self.user_str += self.user_str_piece  # 入力した文字列の結合
+            self.user_str += str(self.user_input)  # 入力した文字列の結合
 
-    # hitの回数をカウント
+    # 非同期で入力を受け付ける
+    async def async_input(self, prompt: str) -> int:
+        print(prompt, end="", flush=True)
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(None, input)
+
+    # hit(数字と桁位置の両方が同じ)の回数をカウント
     def hit_count(self) -> int:
-        self.hit = 0  # 数値と桁位置の両方が同じ
+        self.hit = 0
         for answer, user in zip(self.ans_str, self.user_str):
             if answer == user:
                 self.hit += 1  # hitの回数をカウントアップ
         return self.hit
 
-    # blowの回数をカウント
+    # blow(数字のみ同じ)の回数をカウント
     def blow_count(self) -> int:
-        self.blow = 0  # 数値のみ同じ
-        # blowの判定
+        self.blow = 0
         for digit in self.user_str:
             if digit in self.ans_str:
                 self.blow += 1  # blowの回数をカウントアップ
@@ -93,14 +102,16 @@ class Quiz:
     # ファイルに記録（hitとblowの回数）
     def write_file_count(self) -> None:
         with open(self.FILE_NAME, 'a') as f:
-            f.write(f'hit: {self.hit} | blow: {self.blow} | your answer is {self.user_str}\n')
+            f.write(
+                f'hit: {self.hit} | blow: {self.blow} | your answer is {
+                    self.user_str}\n')
 
     # ファイルに記録（正解）
     def write_file_collect(self) -> None:
         with open(self.FILE_NAME, 'a') as f:
             f.write(f'correct answer in {self.count}\n\n')
 
-    # ファイルに記録（正解）
+    # ファイルに記録（不正解）
     def write_file_fall(self) -> None:
         with open(self.FILE_NAME, 'a') as f:
             f.write("You couldn't answer correctly.\n")
@@ -118,6 +129,11 @@ class Quiz:
             self.user_str = ""
             await self.main()
 
+    # メニューに戻る
+    async def back_menu(self):
+        import main_menu
+        await main_menu.execute()
+
     # 判定
     async def main(self):
         print(f'\n{self.DECO}')
@@ -125,17 +141,18 @@ class Quiz:
         print(f'{self.DECO}\n')
         print(f'挑戦できる回数は{self.MAX_CHALLENGE}回です！')
         if not input_boolean('準備は良いですか？'):
-            print('また挑戦してね！\n')
-            import main_menu
-            await main_menu.execute()
+            print('また挑戦してね！')
+            await asyncio.sleep(0.7)
+            print()
+            await self.back_menu()
         print('それでは始めます')
         await self.count_down()
         self.create_ans()
-        # print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
+        print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.MAX_CHALLENGE:
             print(f'\n------- {self.count}回目の挑戦！！ --------\n')
             await play_quiz()
-            self.input_user()
+            await self.input_user()
             print(f'あなたが入力した値: {self.user_str}')
             self.hit = self.hit_count()
             self.blow = self.blow_count()
@@ -150,7 +167,9 @@ class Quiz:
                 print(f'\n{self.DECO}\n')
                 await self.retry()
             else:
-                print(f'{self.CYAN}hit: {self.hit} | blow: {self.blow}{self.END}')
+                print(
+                    f'{self.CYAN}hit: {self.hit} | blow: {self.blow}{self.END}'
+                    )
                 self.count += 1
                 self.user_str = ""
                 self.user_cnt = 1
@@ -162,6 +181,7 @@ class Quiz:
             print(f'\n残念! 正解は{self.ans_str}でした。')
             self.write_file_fall()
             print(f'\n{self.DECO}\n')
+            await self.retry()
 
 
 if __name__ == '__main__':
