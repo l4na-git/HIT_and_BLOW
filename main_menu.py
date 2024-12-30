@@ -11,12 +11,12 @@ DECO = '=' * 70
 TITLE = '                            Hit&Blow'
 
 # メニュー番号
-menu_how_to = 1  # 遊び方
-volume_setting = 2  # 音量の設定
-show_log = 3  # ログの表示
-menu_3_digit = 4  # 3桁モード
-menu_4_digit = 5  # 4桁モード
-menu_exit = 9  # 終了
+MENU_HOW_TO = 1  # 遊び方
+VOLUME_SETTING = 2  # 音量の設定
+SHOW_LOG = 3  # ログの表示
+MENU_3_DIGIT = 4  # 3桁モード
+MENU_4_DIGIT = 5  # 4桁モード
+MENU_EXIT = 9  # 終了
 
 
 # メイン関数
@@ -37,32 +37,32 @@ def print_menu():
     print(DECO)
     print(TITLE)
     print(f'{DECO}\n')
-    print(f'{menu_how_to}. 遊び方')
-    print(f'{volume_setting}. 音量の設定')
-    print(f'{show_log}. ログを表示')
-    print(f'{menu_3_digit}. 3桁モード')
-    print(f'{menu_4_digit}. 4桁モード')
-    print(f'{menu_exit}. 終了')
+    print(f'{MENU_HOW_TO}. 遊び方')
+    print(f'{VOLUME_SETTING}. 音量の設定')
+    print(f'{SHOW_LOG}. ログを表示')
+    print(f'{MENU_3_DIGIT}. 3桁モード')
+    print(f'{MENU_4_DIGIT}. 4桁モード')
+    print(f'{MENU_EXIT}. 終了')
     print(f'\n{DECO}\n')
 
 
 # メニュー番号の機能を実行
 async def execute_menu(menu_no):
-    if menu_no == menu_how_to:
+    if menu_no == MENU_HOW_TO:
         main()
-    elif menu_no == volume_setting:
+    elif menu_no == VOLUME_SETTING:
         volume()
-    elif menu_no == show_log:
+    elif menu_no == SHOW_LOG:
         with open(r'log_data\guest.txt', 'r') as f:
             print(f.read())
         print('~' * 70)
-    elif menu_no == menu_3_digit:
+    elif menu_no == MENU_3_DIGIT:
         quiz_mode3 = Quiz(digit=3)
         await quiz_mode3.main()
-    elif menu_no == menu_4_digit:
+    elif menu_no == MENU_4_DIGIT:
         quiz_mode4 = Quiz(digit=4)
         await quiz_mode4.main()
-    elif menu_no == menu_exit:
+    elif menu_no == MENU_EXIT:
         print('遊んでくれてありがとう!またね！')
         delete_volume_file()
         exit()
