@@ -1,11 +1,9 @@
 # クイズを出題
-
 import random
 from sound import play_correct, play_wrong, play_count, play_quiz
-from keyboard_utils import input_boolean
+from keyboard_utils import input_boolean, input_int
 from message import animation_correct, animation_wrong
 import asyncio
-import keyboard
 
 
 class Quiz:
@@ -39,35 +37,29 @@ class Quiz:
         return self.ans_str
 
     # ユーザの入力に対してのチェック
-    async def input_check(self) -> str:
+    def input_check(self) -> str:
         while True:
+            self.user_int = input_int(f'{self.user_cnt}つ目の数字を入力してください: ')
             # 入力された数字は1つか
-            if len(self.user_input) != 1 or not self.user_input.isdigit():
+            if len(str(self.user_int)) != 1:
                 print('[エラー!!] 数字は1つずつ入力してください')
                 continue
             # 数字が重複していないか
-            elif self.user_str.count(str(self.user_input)) != 0:
+            elif self.user_str.count(str(self.user_int)) != 0:
                 print('[エラー!!] 同じ数字は使用できません')
                 continue
             # ユーザの入力を文字列に変換
             else:
+                self.user_str_piece = str(self.user_int)
                 break
-        # return self.user_str_piece
+        return self.user_str_piece
 
     # ユーザの解答の入力
     async def input_user(self) -> None:
         for _ in range(self.digit):
-            self.user_input = await self.async_input(
-                f'{self.user_cnt}つ目の数字を入力してください: ')
-            await self.input_check()
+            self.user_input = self.input_check()
             self.user_cnt += 1  # 入力回数のカウントアップ
             self.user_str += str(self.user_input)  # 入力した文字列の結合
-
-    # 非同期で入力を受け付ける
-    async def async_input(self, prompt: str) -> int:
-        print(prompt, end="", flush=True)
-        loop = asyncio.get_event_loop()
-        return await loop.run_in_executor(None, input)
 
     # hit(数字と桁位置の両方が同じ)の回数をカウント
     def hit_count(self) -> int:
