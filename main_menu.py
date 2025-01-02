@@ -4,6 +4,8 @@ from quiz import Quiz
 from how_to import main
 from sound import set_file, delete_volume_file, volume
 from keyboard_utils import input_int
+import log_utils
+import file_utils
 import asyncio
 
 # 装飾とタイトル
@@ -53,8 +55,7 @@ async def execute_menu(menu_no):
     elif menu_no == VOLUME_SETTING:
         volume()
     elif menu_no == SHOW_LOG:
-        with open(r'log_data\guest.txt', 'r') as f:
-            print(f.read())
+        log_utils.print_log(file_utils.read_log())
         print('~' * 70)
     elif menu_no == MENU_3_DIGIT:
         quiz_mode3 = Quiz(digit=3)
