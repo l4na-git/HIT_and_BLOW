@@ -10,7 +10,7 @@ def search_file(filename: str) -> bool:
         return False
 
 
-def write_volume_file(num: float, file_path: str) -> None:
+def write_file(num: float, file_path: str) -> None:
     """ 設定ファイルを作成する関数 """
     with open(file_path, 'w') as f:
         try:
