@@ -1,6 +1,6 @@
 # 音を鳴らす
 import keyboard_utils as keyboard
-from file_utils import search_file, write_volume_file
+from file_utils import search_file, write_volume_file, delete_file
 import pygame
 import os
 import asyncio
@@ -73,23 +73,19 @@ def volume():
     set_volume = keyboard.input_volume('音量を入力: ')
     volume = str(set_volume / 100)
     search_file(CONF_FILE_PATH)
-    write_volume_file(f'{volume}', CONF_FILE_PATH, ERROR_PRINT)
+    write_volume_file(f'{volume}', CONF_FILE_PATH)
     print(f'\n音量を{set_volume}%に設定しました')
     print(f'\n{DECO}\n')
 
 
 def set_file():
     """ プログラム実行時に呼び出す関数 """
-    return write_volume_file(f'{DEFAULT_VOLUME}', CONF_FILE_PATH, ERROR_PRINT)
+    return write_volume_file(f'{DEFAULT_VOLUME}', CONF_FILE_PATH)
 
 
 def delete_volume_file():
     """ ファイルの削除をする関数 """
-    if os.path.exists(CONF_FILE_PATH):
-        os.remove(CONF_FILE_PATH)
-        # print('ファイルを削除しました')
-    else:
-        print('ファイルが見つかりません')
+    delete_file(CONF_FILE_PATH)
 
 
 if __name__ == "__main__":
