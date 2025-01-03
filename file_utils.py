@@ -10,9 +10,9 @@ def search_file(filename: str) -> bool:
         return False
 
 
-def write_volume_file(num: float, CONF_FILE_PATH: str) -> None:
+def write_volume_file(num: float, file_path: str) -> None:
     """ 設定ファイルを作成する関数 """
-    with open(CONF_FILE_PATH, 'w') as f:
+    with open(file_path, 'w') as f:
         try:
             f.write(num)
         except OSError:
