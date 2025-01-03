@@ -10,14 +10,13 @@ def search_file(filename: str) -> bool:
         return False
 
 
-def write_volume_file(num: float, CONF_FILE_PATH: str, ERROR_PRINT: str
-                      ) -> None:
+def write_volume_file(num: float, CONF_FILE_PATH: str) -> None:
     """ 設定ファイルを作成する関数 """
     with open(CONF_FILE_PATH, 'w') as f:
         try:
             f.write(num)
         except OSError:
-            print(ERROR_PRINT)
+            print('ファイルの読み込み中にエラーが発生しました。')
             pass
 
 
@@ -38,3 +37,12 @@ def add_log(data):
         f.seek(0)
         json.dump(log_data, f, indent=4)
         f.truncate()
+
+
+def delete_file(FILE_PATH: str) -> None:
+    """ ファイルの削除をする関数 """
+    if os.path.exists(FILE_PATH):
+        os.remove(FILE_PATH)
+        # print('ファイルを削除しました')
+    else:
+        print('ファイルが見つかりません')
