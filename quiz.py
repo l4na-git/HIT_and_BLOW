@@ -1,10 +1,9 @@
 # クイズを出題
 import random
 from sound import play_correct, play_wrong, play_count, play_quiz
-from keyboard_utils import input_boolean, input_int
+from keyboard_utils import input_boolean
 from message import animation_correct, animation_wrong
 import asyncio
-import keyboard
 import file_utils
 from datetime import datetime
 
@@ -28,8 +27,8 @@ class Quiz:
         self.clear = False
         self.log = []  # ログ
 
-    # 正解の生成
     def create_ans(self) -> str:
+        """ 正解の生成をするメソッド """
         while True:
             ans_num = random.randint(0, 9)
             # 数字が重複していないか
@@ -41,17 +40,16 @@ class Quiz:
                 break
         return self.ans_str
 
-
     async def input_check(self, input_data: str) -> None:
+        """ 入力された値に対してのチェックをするメソッド """
         if len(input_data) != self.digit:
             raise Exception('[エラー!!] 3桁で入力してください')
         # 入力された数字が重複されていないか確認
         if len(set(input_data)) != self.digit:
             raise Exception('[エラー!!] 重複しない数字を使用してください')
 
-
-    # ユーザの解答の入力
     async def input_user(self) -> None:
+        """ ユーザの解答の入力を求めるメソッド """
         while True:
             # ユーザーの入力を取得
             input_int = await self.async_input("回答を入力してください: ")
@@ -63,22 +61,22 @@ class Quiz:
                 continue
         self.user_str = str(input_int)
 
-    # 非同期で入力を受け付ける
     async def async_input(self, prompt: str) -> str:
+        """ 非同期で入力を受け付けるメソッド """
         print(prompt, end="", flush=True)
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, input)
 
-    # hit(数字と桁位置の両方が同じ)の回数をカウント
     def hit_count(self) -> int:
+        """ hit(数字と桁位置の両方が同じ)の回数をカウントするメソッド """
         self.hit = 0
         for answer, user in zip(self.ans_str, self.user_str):
             if answer == user:
                 self.hit += 1  # hitの回数をカウントアップ
         return self.hit
 
-    # blow(数字のみ同じ)の回数をカウント
     def blow_count(self) -> int:
+        """ blow(数字のみ同じ)の回数をカウントするメソッド """
         self.blow = 0
         for digit in self.user_str:
             if digit in self.ans_str:
@@ -86,8 +84,8 @@ class Quiz:
         self.blow -= self.hit  # hitの回数分を引く
         return self.blow
 
-    # カウントダウン
     async def count_down(self):
+        """ カウントダウンをするメソッド """
         print(' よーい...')
         print('\033[?25l', end='')  # カーソル消去
         for i in range(self.TARGET_TIME, 0, -1):
@@ -97,12 +95,13 @@ class Quiz:
         print('\bスタート！')
         print('\033[?25h', end='')  # カーソル表示
 
-    # ファイルに記録（hitとblowの回数）
     def append_log(self) -> None:
+        """ ファイルに記録(hitとblowの回数)するメソッド """
         log_data = {"input": self.user_str, "hit": self.hit, "blow": self.blow}
         self.log.append(log_data)
 
     def write_log(self) -> None:
+        """ ファイルに記録をするメソッド """
         log = {}
         log["datetime"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         log["answer"] = int(self.ans_str)
@@ -110,25 +109,24 @@ class Quiz:
         log["log"] = self.log
         file_utils.add_log(log)
 
-    # 再挑戦するかどうか
     async def retry(self):
+        """" 再挑戦するかどうかの入力を求めるメソッド """
         if not input_boolean('もう一度挑戦しますか？'):
             print()
-            import main_menu
-            await main_menu.execute()
+            await self.back_menu()
         else:
             self.ans_str = ""
             self.user_cnt = 1
             self.user_str = ""
             await self.main()
 
-    # メニューに戻る
     async def back_menu(self):
+        """ メニューに戻るメソッド """
         import main_menu
         await main_menu.execute()
 
-    # 判定
     async def main(self):
+        """ メインの関数 """
         print(f'\n{self.DECO}')
         print(self.title)
         print(f'{self.DECO}\n')

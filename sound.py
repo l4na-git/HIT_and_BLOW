@@ -35,28 +35,28 @@ async def play(filename):
     # print("再生終了")
 
 
-# 正解のとき
 async def play_correct():
+    """ 正解のときに呼び出す関数 """
     await play(r"audio\collect.mp3")
 
 
-# 不正解のとき
 async def play_wrong():
+    """ 不正解のときに呼び出す関数 """
     await play(r"audio\zannen.mp3")
 
 
-# カウントダウンのとき
 async def play_count():
+    """ カウントダウンをするときに呼び出す関数 """
     await play(r"audio\time.mp3")
 
 
-# 何回目の挑戦を表示するとき
 async def play_quiz():
+    """ 何回目の挑戦を表示するときに呼び出す関数 """
     await play(r"audio\kettei.mp3")
 
 
-# 音量の調整
 def volume():
+    """ 音量の調整をする関数 """
     print(f'\n{DECO}')
     print(TITLE)
     print(f'{DECO}\n')
@@ -78,13 +78,13 @@ def volume():
     print(f'\n{DECO}\n')
 
 
-# プログラム実行時に呼び出す
 def set_file():
+    """ プログラム実行時に呼び出す関数 """
     return write_volume_file(f'{DEFAULT_VOLUME}', CONF_FILE_PATH, ERROR_PRINT)
 
 
-# ファイルの削除
 def delete_volume_file():
+    """ ファイルの削除をする関数 """
     if os.path.exists(CONF_FILE_PATH):
         os.remove(CONF_FILE_PATH)
         # print('ファイルを削除しました')

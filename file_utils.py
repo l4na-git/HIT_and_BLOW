@@ -2,15 +2,17 @@
 import os
 import json
 
-# ファイルがあるかどうかを確認
+
 def search_file(filename: str) -> bool:
+    """ ファイルがあるかどうかを確認する関数 """
     if not os.path.exists(filename):
         print(f"ファイルが見つかりません: {filename}")
         return False
 
 
-# 設定ファイルの作成
-def write_volume_file(num: float, CONF_FILE_PATH: str, ERROR_PRINT: str):
+def write_volume_file(num: float, CONF_FILE_PATH: str, ERROR_PRINT: str
+                      ) -> None:
+    """ 設定ファイルを作成する関数 """
     with open(CONF_FILE_PATH, 'w') as f:
         try:
             f.write(num)
@@ -19,12 +21,14 @@ def write_volume_file(num: float, CONF_FILE_PATH: str, ERROR_PRINT: str):
             pass
 
 
-
 def read_log():
+    """ 記録の読み込みをする関数 """
     with open("log_data/guest.json", 'r') as f:
         return json.load(f)
 
+
 def add_log(data):
+    """ 記録の追加をする関数 """
     with open("log_data/guest.json", 'r+') as f:
         try:
             log_data = json.load(f)

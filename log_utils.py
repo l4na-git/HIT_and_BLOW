@@ -1,10 +1,13 @@
 import file_utils
 
 
+# 定数の定義
 INDENT_SPACE = " " * 2
 LINE_LENGTH = 30
 
+
 def print_log(data):
+    """ ログを表示する関数 """
     for i in data:
         print(f"日時: {i["datetime"]}")
         print(f"答え: {i["answer"]}")

@@ -35,22 +35,22 @@ WRONG_MESSAGE = """
 DELAY = 0.23  # フレーム間の遅延時間
 
 
-# 一定の間隔で表示する
 async def animation(art_lines):
+    """ 一定の間隔で表示する関数 """
     for i in range(len(art_lines)):
         print(art_lines[i])
         await asyncio.sleep(DELAY)
     await asyncio.sleep(1)
 
 
-# 正解のときに呼び出すもの
 async def animation_correct():
+    """ 正解のときに呼び出す関数 """
     art_lines = CORRECT_MESSAGE.splitlines()
     await animation(art_lines)
 
 
-# 正解できなかったときに呼び出すもの
 async def animation_wrong():
+    """ 正解できなかったときに呼び出す関数 """
     art_lines = WRONG_MESSAGE.splitlines()
     await animation(art_lines)
 

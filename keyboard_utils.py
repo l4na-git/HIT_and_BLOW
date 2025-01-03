@@ -1,8 +1,7 @@
 # キーボードから入力された値に対しての処理
 
-# キーボードから整数を入力して返す
-# 整数以外が入力された場合は再入力させる
 def input_int(prompt: str) -> int:
+    """ キーボードから整数を入力して返す """
     while True:
         user_input = input(prompt)
         if user_input.isdigit():
@@ -13,9 +12,8 @@ def input_int(prompt: str) -> int:
     return int(user_input)
 
 
-# キーボードからyまたはnを入力して返す
-# True:yが入力された場合 False:nが入力された場合
 def input_boolean(prompt: str) -> bool:
+    """ キーボードからyまたはnを入力して返す """
     y_inputs = ['y', 'ｙ']
     n_inputs = ['n', 'ｎ']
     while True:
@@ -27,9 +25,8 @@ def input_boolean(prompt: str) -> bool:
         print('[エラー!!] "y" または "n" を入力してください')
 
 
-# キーボードからQを入力して返す
-# True:Qが入力された場合
 def input_is_q() -> bool:
+    """ キーボードからQを入力して返す関数 """
     q_inputs = ['q', 'ｑ']
     while True:
         user_input = input('戻るには"Q"を押してください: ').lower()
@@ -39,8 +36,8 @@ def input_is_q() -> bool:
             print('[エラー!!] 指定されたキーを入力してください')
 
 
-# キーボードから音量を入力して返す
-def input_volume(prompt):
+def input_volume(prompt) -> int:
+    """ キーボードから音量を入力して返す関数 """
     while True:
         input_volume = input_int(prompt)
         if input_volume > 100:

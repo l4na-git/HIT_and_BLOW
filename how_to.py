@@ -19,8 +19,8 @@ HOW_TO = """
 """
 
 
-# ゲームの遊び方を表示する関数
 def print_info():
+    """ ゲームの遊び方を表示する関数 """
     print(f'\n{DECO}')
     print(TITLE)
     print(DECO)
@@ -28,8 +28,8 @@ def print_info():
     print(f'{DECO_CUT}\n')
 
 
-# メイン関数
 def main():
+    """ メインの関数 """
     print_info()
     input_is_q()  # ユーザがqを押すまで待機
     print(f'\n{DECO}\n')
