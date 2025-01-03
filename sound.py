@@ -17,6 +17,7 @@ TITLE = '                           音量の設定'
 
 # 共通
 async def play(filename):
+    """ 音を再生する関数 """
     search_file(filename)
     pygame.mixer.init()
     volume = float(read_file(CONF_FILE_PATH))
