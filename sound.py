@@ -90,8 +90,6 @@ def delete_volume_file():
 
 if __name__ == "__main__":
     # 音声ファイルのパス
-    # play(r"audio\hometai.mp3")
-    # play(r"audio\zannen.mp3")
     set_file()
     volume()
     asyncio.run(play_correct())
