@@ -7,7 +7,6 @@ import asyncio
 
 
 # 定数の定義
-ERROR_PRINT = 'ファイルの読み込み中にエラーが発生しました。'
 dir = os.path.dirname(__file__)
 CONF_FILE_PATH = dir + r'\conf\sound.txt'
 DEFAULT_VOLUME = 0.3
