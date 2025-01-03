@@ -40,7 +40,7 @@ def read_all_file(file_path: str) -> list:
     with open(DIR + file_path, 'r', encoding='utf-8') as f:
         try:
             for line in f:
-                list_data.append(line)
+                list_data.append(line.strip())
             return list_data
         except OSError as e:
             print('ファイルの読み込み中にエラーが発生しました。')
