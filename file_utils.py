@@ -17,8 +17,9 @@ def write_file(num: float, file_path: str) -> None:
     with open(file_path, 'w') as f:
         try:
             f.write(num)
-        except OSError:
+        except OSError as e:
             print('ファイルの読み込み中にエラーが発生しました。')
+            print(e)
             pass
 
 
@@ -27,8 +28,9 @@ def read_file(file_path: str):
     with open(file_path, 'r', encoding='utf-8') as f:
         try:
             return f.readline()
-        except OSError:
+        except OSError as e:
             print('ファイルの読み込み中にエラーが発生しました。')
+            print(e)
             pass
 
 
@@ -40,8 +42,9 @@ def read_all_file(file_path: str) -> list:
             for line in f:
                 list_data.append(line)
             return list_data
-        except OSError:
+        except OSError as e:
             print('ファイルの読み込み中にエラーが発生しました。')
+            print(e)
             pass
 
 
