@@ -39,10 +39,10 @@ def add_log(data):
         f.truncate()
 
 
-def delete_file(FILE_PATH: str) -> None:
+def delete_file(file_path: str) -> None:
     """ ファイルの削除をする関数 """
-    if os.path.exists(FILE_PATH):
-        os.remove(FILE_PATH)
+    if os.path.exists(file_path):
+        os.remove(file_path)
         # print('ファイルを削除しました')
     else:
         print('ファイルが見つかりません')
