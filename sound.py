@@ -1,4 +1,4 @@
-# 音を鳴らす
+# 音量に関するもの
 import keyboard_utils as keyboard
 from file_utils import search_file, write_volume_file, delete_file
 import pygame
