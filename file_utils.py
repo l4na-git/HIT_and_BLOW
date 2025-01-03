@@ -2,6 +2,8 @@
 import os
 import json
 
+DIR = os.path.dirname(__file__)
+
 
 def search_file(filename: str) -> bool:
     """ ファイルがあるかどうかを確認する関数 """
@@ -25,6 +27,19 @@ def read_file(file_path: str):
     with open(file_path, 'r', encoding='utf-8') as f:
         try:
             return f.readline()
+        except OSError:
+            print('ファイルの読み込み中にエラーが発生しました。')
+            pass
+
+
+def read_all_file(file_path: str) -> list:
+    """ ファイルの読み込みをする関数 """
+    list_data = []
+    with open(DIR + file_path, 'r', encoding='utf-8') as f:
+        try:
+            for line in f:
+                list_data.append(line)
+            return list_data
         except OSError:
             print('ファイルの読み込み中にエラーが発生しました。')
             pass
