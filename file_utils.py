@@ -45,7 +45,7 @@ def read_all_file(file_path: str) -> list:
         except OSError as e:
             print('ファイルの読み込み中にエラーが発生しました。')
             print(e)
-            pass
+            return []
 
 
 def read_log():
