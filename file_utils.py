@@ -22,7 +22,7 @@ def write_file(num: float, file_path: str) -> None:
 
 def read_file(file_path: str):
     """ ファイルの読み込みをする関数 """
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         try:
             return f.readline()
         except OSError:
