@@ -37,22 +37,22 @@ async def play(filename):
 
 async def play_correct():
     """ 正解のときに呼び出す関数 """
-    await play(r"audio\collect.mp3")
+    await play(r"audio\happy.mp3")
 
 
 async def play_wrong():
     """ 不正解のときに呼び出す関数 """
-    await play(r"audio\zannen.mp3")
+    await play(r"audio\sad.mp3")
 
 
 async def play_count():
     """ カウントダウンをするときに呼び出す関数 """
-    await play(r"audio\time.mp3")
+    await play(r"audio\count.mp3")
 
 
 async def play_quiz():
     """ 何回目の挑戦を表示するときに呼び出す関数 """
-    await play(r"audio\kettei.mp3")
+    await play(r"audio\challenge.mp3")
 
 
 def volume():
