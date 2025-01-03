@@ -18,7 +18,7 @@ def print_how_to():
 
 
 def print_info():
-    """ ゲームの遊び方を表示する関数 """
+    """ タイトルとゲームの遊び方を表示する関数 """
     print(f'\n{DECO}')
     print(TITLE)
     print(DECO)
