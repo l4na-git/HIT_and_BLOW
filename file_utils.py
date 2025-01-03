@@ -20,6 +20,16 @@ def write_file(num: float, file_path: str) -> None:
             pass
 
 
+def read_file(file_path: str):
+    """ ファイルの読み込みをする関数 """
+    with open(file_path, 'r') as f:
+        try:
+            return f.readline()
+        except OSError:
+            print('ファイルの読み込み中にエラーが発生しました。')
+            pass
+
+
 def read_log():
     """ 記録の読み込みをする関数 """
     with open("log_data/guest.json", 'r') as f:

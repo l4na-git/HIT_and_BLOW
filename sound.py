@@ -1,6 +1,6 @@
 # 音量に関するもの
 import keyboard_utils as keyboard
-from file_utils import search_file, write_file, delete_file
+from file_utils import search_file, write_file, delete_file, read_file
 import pygame
 import os
 import asyncio
@@ -19,12 +19,7 @@ TITLE = '                           音量の設定'
 async def play(filename):
     search_file(filename)
     pygame.mixer.init()
-    with open(CONF_FILE_PATH, 'r') as f:
-        try:
-            volume = float(f.readline())
-        except OSError:
-            print(ERROR_PRINT)
-            pass
+    volume = float(read_file(CONF_FILE_PATH))
     pygame.mixer.music.set_volume(volume)  # 音量を設定
     pygame.mixer.music.load(filename)
     pygame.mixer.music.play()
@@ -63,13 +58,8 @@ def volume():
     print('音量を設定できます(0～100)')
     print('[注意！] パソコンでミュートになっている場合は音がなりません。\n')
     pygame.mixer.init()
-    with open(CONF_FILE_PATH, 'r') as f:
-        try:
-            volume = float(f.readline()) * 100
-            print(f'現在の音量は{volume:.0f}%です')
-        except OSError:
-            print(ERROR_PRINT)
-            pass
+    volume = float(read_file(CONF_FILE_PATH)) * 100
+    print(f'現在の音量は{volume:.0f}%です')
     set_volume = keyboard.input_volume('音量を入力: ')
     volume = str(set_volume / 100)
     search_file(CONF_FILE_PATH)
