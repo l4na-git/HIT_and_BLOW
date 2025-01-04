@@ -56,8 +56,7 @@ def change_user():
     print(DECO)
     print(CHANGE_TITLE)
     print(f'{DECO}\n')
-    data = read_log(NOW_USE_PATH)
-    username = data['username']
+    username = get_username()
     print(f'現在のユーザ: {username}')
     change_username = input_isalnum_ascii('変更したいユーザの名前を入力してください(英数字のみ): ')
     files = glob.glob(f'{LOG_PATH.resolve()}/*.json')
@@ -92,3 +91,10 @@ def delete_user():
     else:
         print('\n削除をキャンセルしました')
     print(f'\n{DECO}\n')
+
+
+def get_username():
+    """ 現在のユーザ名を取得 """
+    data = read_log(NOW_USE_PATH)
+    username = data['username']
+    return username
