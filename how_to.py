@@ -1,6 +1,6 @@
 # ゲームの説明
-from keyboard_utils import input_is_q
-from file_utils import read_all_file
+from utils.keyboard_utils import input_is_q
+from utils.file_utils import read_all_file
 from sound import play_keyboard
 from time import sleep
 import asyncio

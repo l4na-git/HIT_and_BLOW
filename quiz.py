@@ -1,10 +1,10 @@
 # クイズを出題
 import random
 from sound import play_correct, play_wrong, play_count, play_quiz
-from keyboard_utils import input_boolean
+from utils.keyboard_utils import input_boolean
 from message import animation_correct, animation_wrong
 import asyncio
-import file_utils
+import utils.file_utils as file_utils
 from datetime import datetime
 
 

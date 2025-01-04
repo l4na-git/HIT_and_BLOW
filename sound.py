@@ -1,6 +1,6 @@
 # 音量に関するもの
-import keyboard_utils as keyboard
-from file_utils import search_file, write_file, delete_file, read_file
+import utils.keyboard_utils as keyboard
+from utils.file_utils import search_file, write_file, delete_file, read_file
 import pygame
 import os
 import asyncio

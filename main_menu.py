@@ -3,9 +3,9 @@
 from quiz import Quiz
 from how_to import main
 from sound import set_file, delete_volume_file, volume
-from keyboard_utils import input_int
-import log_utils
-import file_utils
+from utils.keyboard_utils import input_int
+from utils import log_utils
+import utils.file_utils as file_utils
 import asyncio
 
 # 装飾とタイトル
