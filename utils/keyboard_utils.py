@@ -12,6 +12,18 @@ def input_int(prompt: str) -> int:
     return int(user_input)
 
 
+def input_isalnum_ascii(prompt: str) -> str:
+    """ キーボードから英数字を入力して返す """
+    while True:
+        user_input = input(prompt).strip()
+        if user_input.isalnum() and user_input.isascii():
+            break
+        else:
+            print('[エラー!!] 英数字で入力してください')
+
+    return user_input
+
+
 def input_boolean(prompt: str) -> bool:
     """ キーボードからyまたはnを入力して返す """
     y_inputs = ['y', 'ｙ']
