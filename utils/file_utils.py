@@ -47,9 +47,9 @@ def read_all_file(file_path: str) -> list:
             return []
 
 
-def read_log(filename: str):
+def read_log(file_path: str):
     """ 記録の読み込みをする関数 """
-    with open("log_data/" + filename, 'r') as f:
+    with open(file_path, 'r') as f:
         try:
             return json.load(f)
         except json.decoder.JSONDecodeError:
