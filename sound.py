@@ -50,6 +50,11 @@ async def play_quiz():
     await play(r"audio\challenge.mp3")
 
 
+async def play_keyboard():
+    """ キーボードの音を鳴らす関数 """
+    await play(r"audio\keyboard.mp3")
+
+
 def volume():
     """ 音量の調整をする関数 """
     print(f'\n{DECO}')
