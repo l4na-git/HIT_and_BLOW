@@ -2,8 +2,6 @@
 import os
 import json
 
-DIR = os.path.dirname(__file__)
-
 
 def search_file(filename: str) -> bool:
     """ ファイルがあるかどうかを確認する関数 """
@@ -37,7 +35,7 @@ def read_file(file_path: str):
 def read_all_file(file_path: str) -> list:
     """ ファイルの読み込みをする関数 """
     list_data = []
-    with open(DIR + file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         try:
             for line in f:
                 list_data.append(line.strip())
