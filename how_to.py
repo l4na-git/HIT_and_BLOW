@@ -5,6 +5,7 @@ from sound import play_keyboard
 from time import sleep
 import asyncio
 import pygame
+import os
 
 
 # 定数の定義
@@ -17,7 +18,7 @@ SLEEP_TIME_LINE = 0.4
 
 async def print_how_to(event: asyncio.Event):
     """ ゲームの遊び方を表示する関数 """
-    line_data = read_all_file(r'\conf\how_to.txt')
+    line_data = read_all_file(os.path.dirname(__file__) + r'\conf\how_to.txt')
     print('\033[?25l', end='')  # カーソル消去
     for line in line_data:
         sleep(SLEEP_TIME_LINE)
