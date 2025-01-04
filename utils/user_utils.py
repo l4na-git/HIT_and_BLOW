@@ -60,8 +60,15 @@ def change_user():
     username = data['username']
     print(f'現在のユーザ: {username}')
     change_username = input_isalnum_ascii('変更したいユーザの名前を入力してください(英数字のみ): ')
-    change_log(NOW_USE_PATH, change_username)
-    print(f'\n{username}に変更しました!')
+    files = glob.glob(f'{LOG_PATH.resolve()}/*.json')
+    for file in files:
+        name = Path(file).stem
+        if name == change_username:
+            change_log(NOW_USE_PATH, change_username)
+            print(f'\n{change_username}に変更しました!')
+            print(f'\n{DECO}\n')
+            return back_to_menu()
+    print('[エラー!!] 存在しないユーザです')
     print(f'\n{DECO}\n')
 
 
