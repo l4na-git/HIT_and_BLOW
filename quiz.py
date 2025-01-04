@@ -9,7 +9,6 @@ from datetime import datetime
 
 
 class Quiz:
-    MAX_CHALLENGE = 10  # 入力できる回数
     TARGET_TIME = 3  # カウントダウンする秒数
     FILE_NAME = r'log_data\guest.txt'
     RED = '\033[31m'  # テキストの色（赤）
@@ -17,8 +16,9 @@ class Quiz:
     END = '\033[0m'  # テキストの色（デフォルト）
     DECO = '*' * 70
 
-    def __init__(self, digit: int) -> None:
+    def __init__(self, digit: int, max_challenge: int) -> None:
         self.digit = digit  # 桁数
+        self.max_challenge = max_challenge  # 入力できる回数
         self.ans_str = ""  # あてる数字
         self.user_str = ""  # ユーザの解答
         self.count = 1  # カウント回数の初期化
@@ -150,7 +150,7 @@ class Quiz:
         print(f'\n{self.DECO}')
         print(self.title)
         print(f'{self.DECO}\n')
-        print(f'挑戦できる回数は{self.MAX_CHALLENGE}回です！')
+        print(f'挑戦できる回数は{self.max_challenge}回です！')
         if not input_boolean('準備は良いですか？'):
             print('また挑戦してね！')
             await asyncio.sleep(0.7)
@@ -160,7 +160,7 @@ class Quiz:
         await self.count_down()
         self.create_ans()
         print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
-        while self.count <= self.MAX_CHALLENGE:
+        while self.count <= self.max_challenge:
             print(f'\n------- {self.count}回目の挑戦！！ --------\n')
             await play_quiz()
             await self.input_user()
