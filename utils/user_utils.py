@@ -2,12 +2,14 @@
 from utils.keyboard_utils import input_isalnum_ascii, input_boolean
 from utils.file_utils import write_file, search_file, delete_file, read_log
 from pathlib import Path
+import glob
 
 DECO = '*' * 70
 CREATE_TITLE = '                            ユーザ作成'
 DELETE_TITLE = '                            ユーザ削除'
+SHOW_TITLE = '                            ユーザ一覧'
 
-PATH = Path('log_data\\')
+PATH = Path('log_data/')
 
 
 def back_to_menu():
@@ -24,11 +26,26 @@ def create_user():
     name = input_isalnum_ascii('作成したいユーザの名前を入力してください(英数字のみ): ')
     filename = f'{name}.json'
     create_path = PATH / filename
-    if search_file(create_path):
+    if search_file(create_path.resolve()):
         print('[エラー!!] 既に存在するユーザです')
         return back_to_menu()
     write_file(filename, create_path)
     print(f'こんにちは、{name}さん')
+    print(f'\n{DECO}\n')
+
+
+def show_user():
+    """ ユーザ一覧を表示 """
+    print(DECO)
+    print(SHOW_TITLE)
+    print(f'{DECO}\n')
+    files = glob.glob(f'{PATH.resolve()}/*.json')
+    count = 0
+    for file in files:
+        count += 1
+        name = Path(file).stem
+        print(f'{count}. {name}さん')
+    print(f'\nユーザは{count}人です')
     print(f'\n{DECO}\n')
 
 
