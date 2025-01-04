@@ -125,6 +125,26 @@ class Quiz:
         import main_menu
         await main_menu.execute()
 
+    async def correct(self):
+        """ 正解のときに呼び出すメソッド """
+        try:
+            async with asyncio.TaskGroup() as tk:
+                tk.create_task(animation_correct())
+                tk.create_task(play_correct())
+        except* ValueError as e:
+            for _e in e.exceptions:
+                print(_e)
+
+    async def wrong(self):
+        """ 正解できなかったときに呼び出すメソッド """
+        try:
+            async with asyncio.TaskGroup() as tk:
+                tk.create_task(animation_wrong())
+                tk.create_task(play_wrong())
+        except* ValueError as e:
+            for _e in e.exceptions:
+                print(_e)
+
     async def main(self):
         """ メインの関数 """
         print(f'\n{self.DECO}')
@@ -150,9 +170,7 @@ class Quiz:
             self.append_log()
 
             if self.hit == self.digit:
-                task1 = asyncio.create_task(animation_correct())
-                task2 = asyncio.create_task(play_correct())
-                await asyncio.gather(task1, task2)
+                await self.correct()
                 print(f'\n{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
                 print(f'\n{self.DECO}\n')
                 self.clear = True
@@ -167,9 +185,7 @@ class Quiz:
                 self.user_cnt = 1
         else:
             # 最大回数を超えた場合の処理
-            task1 = asyncio.create_task(animation_wrong())
-            task2 = asyncio.create_task(play_wrong())
-            await asyncio.gather(task1, task2)
+            await self.wrong()
             print(f'\n残念! 正解は{self.ans_str}でした。')
             print(f'\n{self.DECO}\n')
             self.write_log()
