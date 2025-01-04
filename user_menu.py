@@ -2,6 +2,7 @@
 from utils.keyboard_utils import input_int
 from utils.user_utils import create_user, delete_user, show_user, change_user
 import os
+import asyncio
 
 # 装飾とタイトル
 DECO = '*' * 70
@@ -19,7 +20,7 @@ EXIT = 9  # 終了
 PATH = os.path.dirname(__file__) + r'\log_data\\'
 
 
-def execute():
+async def execute():
     """ メインの関数 """
     while True:
         # ユーザメニューを表示
@@ -29,7 +30,7 @@ def execute():
         num = input_int('メニュー番号を入力してください: ')
 
         # メニュー番号の機能を実行
-        execute_menu(num)
+        await execute_menu(num)
 
 
 def print_menu():
@@ -45,7 +46,7 @@ def print_menu():
     print(f'\n{DECO}\n')
 
 
-def execute_menu(menu_no):
+async def execute_menu(menu_no):
     """ メニュー番号の機能を実行する """
     if menu_no == CREATE_USER:
         create_user()
@@ -56,7 +57,8 @@ def execute_menu(menu_no):
     elif menu_no == DELETE_USER:
         delete_user()
     elif menu_no == EXIT:
-        exit()
+        import main_menu
+        await main_menu.execute()
     else:
         print('[エラー!!] もう一度入力してください')
 

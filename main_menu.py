@@ -58,7 +58,7 @@ async def execute_menu(menu_no):
     elif menu_no == VOLUME_SETTING:
         volume()
     elif menu_no == USER_MENU:
-        user_menu.execute()
+        await user_menu.execute()
     elif menu_no == SHOW_LOG:
         log_utils.print_log(file_utils.read_log('log_data/guest.json'))
         print('~' * 70)
