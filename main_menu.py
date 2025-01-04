@@ -5,6 +5,7 @@ from how_to import main
 import user_menu
 from sound import set_file, delete_volume_file, volume
 from utils.keyboard_utils import input_int
+from utils.user_utils import get_username
 from utils import log_utils
 import utils.file_utils as file_utils
 import asyncio
@@ -36,11 +37,18 @@ async def execute():
         await execute_menu(num)
 
 
+def print_username():
+    """ ユーザ名を表示する関数 """
+    username = get_username()
+    print(f'こんにちは! {username}さん!!\n')
+
+
 def print_menu():
     """ メニューの表示をする関数 """
     print(DECO)
     print(TITLE)
     print(f'{DECO}\n')
+    print_username()
     print(f'{MENU_HOW_TO}. 遊び方')
     print(f'{VOLUME_SETTING}. 音量の設定')
     print(f'{USER_MENU}. ユーザ管理')
