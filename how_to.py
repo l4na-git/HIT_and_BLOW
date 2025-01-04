@@ -18,12 +18,14 @@ SLEEP_TIME_LINE = 0.4
 async def print_how_to(event: asyncio.Event):
     """ ゲームの遊び方を表示する関数 """
     line_data = read_all_file(r'\conf\how_to.txt')
+    print('\033[?25l', end='')  # カーソル消去
     for line in line_data:
         sleep(SLEEP_TIME_LINE)
         for _, text in enumerate(line):
             print(text, end='', flush=True)
             await asyncio.sleep(SLEEP_TIME_ONE)
         print()
+    print('\033[?25h', end='')  # カーソル表示
     event.set()
 
 
