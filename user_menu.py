@@ -1,6 +1,6 @@
 # ユーザを管理
-from utils.keyboard_utils import input_int, input_isalnum_ascii, input_boolean
-from utils.file_utils import write_file, search_file, delete_file, read_log
+from utils.keyboard_utils import input_int
+from utils.user_utils import create_user, delete_user
 import os
 
 # 装飾とタイトル
@@ -59,42 +59,6 @@ def execute_menu(menu_no):
         exit()
     else:
         print('[エラー!!] もう一度入力してください')
-
-
-def create_user():
-    """ ユーザ作成 """
-    print(DECO)
-    print(CREATE_TITLE)
-    print(f'{DECO}\n')
-    name = input_isalnum_ascii('作成したいユーザの名前を入力してください(英数字のみ): ')
-    filename = f'{name}.json'
-    if search_file(PATH + filename):
-        print('[エラー!!] 既に存在するユーザです')
-        return execute()
-    write_file(filename, PATH + filename)
-    print(f'こんにちは、{name}さん')
-    print(f'\n{DECO}\n')
-
-
-def delete_user():
-    """ ユーザ削除 """
-    print(DECO)
-    print(DELETE_TITLE)
-    print(f'{DECO}\n')
-    name = input_isalnum_ascii('削除したいユーザの名前を入力してください(英数字のみ): ')
-    filename = f'{name}.json'
-    if not search_file(PATH + filename):
-        print('[エラー!!] 存在しないユーザです')
-        return execute()
-    data = read_log(filename)
-    count = len(data)
-    print(f'\n{name}さんの記録: {count}件')
-    if input_boolean('\n削除してもよろしいですか？'):
-        delete_file(PATH + filename)
-        print(f'\n{name}さんのデータを削除しました')
-    else:
-        print('\n削除をキャンセルしました')
-    print(f'\n{DECO}\n')
 
 
 if __name__ == '__main__':
