@@ -57,9 +57,9 @@ def read_log(filename: str):
             return []
 
 
-def add_log(data):
+def add_log(file_path: str, data):
     """ 記録の追加をする関数 """
-    with open("log_data/guest.json", 'r+') as f:
+    with open(file_path, 'r+') as f:
         try:
             log_data = json.load(f)
         except json.decoder.JSONDecodeError:
