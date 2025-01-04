@@ -4,6 +4,7 @@ from utils.file_utils import search_file, write_file, delete_file, read_file
 import pygame
 import os
 import asyncio
+from time import sleep
 
 
 # 定数の定義
@@ -12,6 +13,7 @@ CONF_FILE_PATH = dir + r'\conf\sound.txt'
 DEFAULT_VOLUME = 0.3
 DECO = '*' * 70
 TITLE = '                           音量の設定'
+SLEEP_TIME = 0.7
 
 
 # 共通
@@ -61,15 +63,19 @@ def volume():
     print(TITLE)
     print(f'{DECO}\n')
     print('音量を設定できます(0～100)')
+    sleep(SLEEP_TIME)
     print('[注意！] パソコンでミュートになっている場合は音がなりません。\n')
+    sleep(SLEEP_TIME)
     pygame.mixer.init()
     volume = float(read_file(CONF_FILE_PATH)) * 100
     print(f'現在の音量は{volume:.0f}%です')
+    sleep(SLEEP_TIME)
     set_volume = keyboard.input_volume('音量を入力: ')
     volume = str(set_volume / 100)
     search_file(CONF_FILE_PATH)
     write_file(f'{volume}', CONF_FILE_PATH)
     print(f'\n音量を{set_volume}%に設定しました')
+    sleep(SLEEP_TIME)
     print(f'\n{DECO}\n')
 
 
