@@ -6,8 +6,9 @@ import json
 def search_file(filename: str) -> bool:
     """ ファイルがあるかどうかを確認する関数 """
     if not os.path.exists(filename):
-        print(f"ファイルが見つかりません: {filename}")
+        # print(f"ファイルが見つかりません: {filename}")
         return False
+    return True
 
 
 def write_file(num: float, file_path: str) -> None:
