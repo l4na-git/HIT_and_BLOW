@@ -70,6 +70,19 @@ def add_log(file_path: str, data):
         f.truncate()
 
 
+def change_log(file_path: str, data):
+    """ ファイル内容の変更をする関数 """
+    with open(file_path, 'r+') as f:
+        try:
+            log_data = json.load(f)
+        except json.decoder.JSONDecodeError:
+            log_data = []
+        log_data['username'] = data
+        f.seek(0)
+        json.dump(log_data, f, indent=4)
+        f.truncate()
+
+
 def delete_file(file_path: str) -> None:
     """ ファイルの削除をする関数 """
     if os.path.exists(file_path):
