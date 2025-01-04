@@ -51,7 +51,7 @@ def print_menu():
 async def execute_menu(menu_no):
     """ メニュー番号の機能を実行する """
     if menu_no == MENU_HOW_TO:
-        main()
+        await main()
     elif menu_no == VOLUME_SETTING:
         volume()
     elif menu_no == SHOW_LOG:
