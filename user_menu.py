@@ -1,6 +1,6 @@
 # ユーザを管理
 from utils.keyboard_utils import input_int
-from utils.user_utils import create_user, delete_user, show_user
+from utils.user_utils import create_user, delete_user, show_user, change_user
 import os
 
 # 装飾とタイトル
