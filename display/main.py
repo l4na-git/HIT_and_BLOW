@@ -51,6 +51,14 @@ def main():
                 pygame.quit()  # pygameのウィンドウを閉じる
                 sys.exit()  # システム終了
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if show_info_button.collidepoint(event.pos):
+                    print("how to play")
+                if show_three_button.collidepoint(event.pos):
+                    print("play 3 digit mode")
+                if show_four_button.collidepoint(event.pos):
+                    print("play 4 digit mode")
+
 
 if __name__ == "__main__":
     main()
