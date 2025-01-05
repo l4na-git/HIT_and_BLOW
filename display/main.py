@@ -1,11 +1,13 @@
 
 import pygame
 import sys
+import os
 
 SCREEN_SIZE = (700, 570)
 BACKGROUND_COLOR = (228, 228, 228)  # (R, G, B)
 TITLE_COLOR = (20, 33, 67)
 TITLE = "Hit & Blow"
+FONT_FILE_PATH = os.path.dirname(__file__) + r"\mgenplus-1p-regular.ttf"
 
 
 def main():
@@ -14,13 +16,24 @@ def main():
     pygame.display.set_caption(TITLE)    # タイトルを作成
 
     font = pygame.font.SysFont("gothicg", 110)
+    button_font = pygame.font.Font(FONT_FILE_PATH, 30)
+
+    # 左上の頂点ｘ座標、左上ｙ座標、横幅（px）、高さ（px）
+    show_info_button = pygame.Rect(250, 200, 200, 65)
+
     title = font.render(TITLE, True, TITLE_COLOR)
+    show_info_test = button_font.render("遊び方", True, BACKGROUND_COLOR)
 
     running = True
     # メインループ
     while running:
         screen.fill(BACKGROUND_COLOR)
+
+        pygame.draw.rect(screen, (26, 93, 148), show_info_button)
+
         screen.blit(title, (150, 70))  # タイトルを描画
+        screen.blit(show_info_test, (300, 210))  # 遊び方ボタンを描画
+
         pygame.display.update()  # 描画処理を実行
 
         for event in pygame.event.get():
