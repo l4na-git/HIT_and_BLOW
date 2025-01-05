@@ -14,13 +14,13 @@ def main():
     pygame.display.set_caption(TITLE)    # タイトルを作成
 
     font = pygame.font.SysFont("gothicg", 110)
-    text = font.render(TITLE, True, TITLE_COLOR)
+    title = font.render(TITLE, True, TITLE_COLOR)
 
     running = True
     # メインループ
     while running:
         screen.fill(BACKGROUND_COLOR)
-        screen.blit(text, (150, 70))  # タイトルを描画
+        screen.blit(title, (150, 70))  # タイトルを描画
         pygame.display.update()  # 描画処理を実行
 
         for event in pygame.event.get():
