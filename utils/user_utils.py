@@ -1,6 +1,7 @@
 # ユーザ管理の関連
 from utils.keyboard_utils import input_isalnum_ascii, input_boolean
-from utils.file_utils import write_file, search_file, delete_file, read_log, change_log
+from utils.file_utils\
+    import write_file, search_file, delete_file, read_log, change_log
 from pathlib import Path
 import glob
 
