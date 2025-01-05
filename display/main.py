@@ -8,6 +8,7 @@ BACKGROUND_COLOR = (228, 228, 228)  # (R, G, B)
 TITLE_COLOR = (20, 33, 67)
 TITLE = "Hit & Blow"
 FONT_FILE_PATH = os.path.dirname(__file__) + r"\mgenplus-1p-regular.ttf"
+BUTTON_COLOR = (26, 93, 148)
 
 
 def main():
@@ -31,8 +32,8 @@ def main():
     while running:
         screen.fill(BACKGROUND_COLOR)
 
-        pygame.draw.rect(screen, (26, 93, 148), show_info_button)
-        pygame.draw.rect(screen, (26, 93, 148), show_three_button)
+        pygame.draw.rect(screen, BUTTON_COLOR, show_info_button)
+        pygame.draw.rect(screen, BUTTON_COLOR, show_three_button)
 
         screen.blit(title, (150, 70))  # タイトルを描画
         screen.blit(show_info_test, (300, 210))  # 遊び方ボタンを描画
