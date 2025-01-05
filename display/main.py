@@ -20,9 +20,11 @@ def main():
 
     # 左上の頂点ｘ座標、左上ｙ座標、横幅（px）、高さ（px）
     show_info_button = pygame.Rect(250, 200, 200, 65)
+    show_three_button = pygame.Rect(250, 285, 200, 65)
 
     title = font.render(TITLE, True, TITLE_COLOR)
     show_info_test = button_font.render("遊び方", True, BACKGROUND_COLOR)
+    show_three_test = button_font.render("3桁モード", True, BACKGROUND_COLOR)
 
     running = True
     # メインループ
@@ -30,9 +32,11 @@ def main():
         screen.fill(BACKGROUND_COLOR)
 
         pygame.draw.rect(screen, (26, 93, 148), show_info_button)
+        pygame.draw.rect(screen, (26, 93, 148), show_three_button)
 
         screen.blit(title, (150, 70))  # タイトルを描画
         screen.blit(show_info_test, (300, 210))  # 遊び方ボタンを描画
+        screen.blit(show_three_test, (285, 295))  # 3桁モードボタンを描画
 
         pygame.display.update()  # 描画処理を実行
 
