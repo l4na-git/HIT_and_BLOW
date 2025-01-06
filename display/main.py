@@ -2,6 +2,7 @@
 import pygame
 import sys
 import os
+import how_to
 
 SCREEN_SIZE = (700, 570)
 BACKGROUND_COLOR = (228, 228, 228)  # (R, G, B)
@@ -53,7 +54,7 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if show_info_button.collidepoint(event.pos):
-                    print("how to play")
+                    how_to.main()
                 if show_three_button.collidepoint(event.pos):
                     print("play 3 digit mode")
                 if show_four_button.collidepoint(event.pos):
