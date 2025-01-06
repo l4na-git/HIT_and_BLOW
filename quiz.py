@@ -2,13 +2,15 @@
 import random
 from sound import play_correct, play_wrong, play_count, play_quiz
 from utils.keyboard_utils import input_boolean
+from utils.user_utils import get_username
 from message import animation_correct, animation_wrong
 import asyncio
 import utils.file_utils as file_utils
 from datetime import datetime
+from pathlib import Path
 
 
-class Quiz:
+class Quiz():
     TARGET_TIME = 3  # カウントダウンする秒数
     FILE_NAME = r'log_data\guest.txt'
     RED = '\033[31m'  # テキストの色（赤）
@@ -102,12 +104,15 @@ class Quiz:
 
     def write_log(self) -> None:
         """ ファイルに記録をするメソッド """
+        name = get_username()
+        filename = f'{name}.json'
+        create_path = Path('log_data/') / filename
         log = {}
         log["datetime"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         log["answer"] = int(self.ans_str)
         log["clear"] = self.clear
         log["log"] = self.log
-        file_utils.add_log(log)
+        file_utils.add_log(create_path, log)  # 途中
 
     async def retry(self):
         """" 再挑戦するかどうかの入力を求めるメソッド """
