@@ -4,14 +4,23 @@ import pygame
 import sys
 
 
-def main():
-    pygame.init()  # 初期化
-
+def create_screen(pygame):
+    """ 画像を使用してスクリーンを作成 """
     back_img = pygame.image.load('images/root_back.png')  # 背景画像の読み込み
     back_img = pygame.transform.scale(back_img, (947, 535))  # 背景画像のサイズを変更
     rect_back = back_img.get_rect()  # 背景画像のサイズを取得
 
     screen = pygame.display.set_mode((rect_back.width, rect_back.height))  # 画面を作成
+
+    return screen, back_img, rect_back
+
+
+def main():
+    """ メインの関数 """
+    pygame.init()  # 初期化
+
+    screen, back_img, rect_back = create_screen(pygame)
+
     pygame.display.set_caption("Hit & Blow")  # タイトルを作成
 
     running = True
