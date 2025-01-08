@@ -6,9 +6,9 @@ import sys
 class DisplayBase():
     WIDTH = 947  # 画面の幅
     HEIGHT = 535  # 画面の高さ
+    TITLE = 'Hit and Blow'  # タイトル
 
-    def __init__(self, title: str, back_img_name: str):
-        self.title = title
+    def __init__(self, back_img_name: str):
         self.back_img_name = 'images/' + back_img_name
 
     def create_screen(self, pygame):
@@ -42,11 +42,11 @@ class DisplayBase():
 
         screen, back_img, rect_back = self.create_screen(pygame)
 
-        pygame.display.set_caption(self.title)  # タイトルを作成
+        pygame.display.set_caption(self.TITLE)  # タイトルを作成
 
         self.event_loop(screen, back_img, rect_back)
 
 
 if __name__ == "__main__":
-    display = DisplayBase("Hit & Blow", 'root_back.png')
+    display = DisplayBase('root_back.png')
     display.main()
