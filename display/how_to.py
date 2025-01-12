@@ -25,7 +25,7 @@ class DisplayInfo(base.DisplayBase):
 
     def get_data(self):
         """ ファイルからデータを取得 """
-        line_data = read_all_file(os.path.dirname(__file__) + r'\..\conf\how_to.txt')
+        line_data = read_all_file(os.path.dirname(__file__) + r'\..\config\how_to.txt')
         FONT_FILE_PATH = os.path.dirname(__file__) + r"\mgenplus-1p-regular.ttf"
         text_font = pygame.font.Font(FONT_FILE_PATH, 15)
         return line_data, text_font
