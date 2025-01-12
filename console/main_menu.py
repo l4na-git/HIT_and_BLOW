@@ -1,5 +1,4 @@
-# メニュー表示
-
+# メインメニューを表示
 from console.quiz import Quiz
 from console.how_to import main as how_to_main
 from console import user_menu
