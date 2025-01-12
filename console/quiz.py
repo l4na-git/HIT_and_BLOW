@@ -1,13 +1,27 @@
 # クイズを出題
 import random
-from console.sound import play_correct, play_wrong, play_count, play_quiz
+from console.sound import play
 from utils.keyboard_utils import input_boolean
 from utils.user_utils import get_username
-from console.message import animation_correct, animation_wrong
+from console.message import print_with_sound
 import asyncio
 import utils.file_utils as file_utils
 from datetime import datetime
 from pathlib import Path
+
+# 使用する音声ファイル
+sound_files = {
+    'challenge_count': 'challenge.mp3',
+    'count_down': 'count.mp3',
+    'correct': 'happy.mp3',
+    'wrong': 'sad.mp3'
+}
+
+# 使用するメッセージファイル
+message_files = {
+    'correct': 'correct_message.txt',
+    'wrong': 'wrong_message.txt'
+}
 
 
 class Quiz():
@@ -93,7 +107,7 @@ class Quiz():
         for i in range(self.TARGET_TIME, 0, -1):
             print(f'\b\b {i}', end='', flush=True)  # 即表示
             # sleep(1)  # 1秒間スリープ
-            await play_count()
+            await play(sound_files['count_down'])
         print('\bスタート！')
         print('\033[?25h', end='')  # カーソル表示
 
@@ -130,26 +144,6 @@ class Quiz():
         import console.main_menu as main_menu
         await main_menu.execute()
 
-    async def correct(self):
-        """ 正解のときに呼び出すメソッド """
-        try:
-            async with asyncio.TaskGroup() as tk:
-                tk.create_task(animation_correct())
-                tk.create_task(play_correct())
-        except* ValueError as e:
-            for _e in e.exceptions:
-                print(_e)
-
-    async def wrong(self):
-        """ 正解できなかったときに呼び出すメソッド """
-        try:
-            async with asyncio.TaskGroup() as tk:
-                tk.create_task(animation_wrong())
-                tk.create_task(play_wrong())
-        except* ValueError as e:
-            for _e in e.exceptions:
-                print(_e)
-
     async def main(self):
         """ メインの関数 """
         print(f'\n{self.DECO}')
@@ -167,7 +161,7 @@ class Quiz():
         print(f'テスト用: {self.ans_str}')  # 使用する際はコメントアウト
         while self.count <= self.max_challenge:
             print(f'\n------- {self.count}回目の挑戦！！ --------\n')
-            await play_quiz()
+            await play(sound_files['challenge_count'])
             await self.input_user()
             print(f'あなたが入力した値: {self.user_str}')
             self.hit = self.hit_count()
@@ -175,7 +169,8 @@ class Quiz():
             self.append_log()
 
             if self.hit == self.digit:
-                await self.correct()
+                await print_with_sound(
+                    message_files['correct'], sound_files['correct'])
                 print(f'\n{self.RED}正解です!! {self.count}回で当たりました!!{self.END}')
                 print(f'\n{self.DECO}\n')
                 self.clear = True
@@ -190,7 +185,8 @@ class Quiz():
                 self.user_cnt = 1
         else:
             # 最大回数を超えた場合の処理
-            await self.wrong()
+            await print_with_sound(
+                message_files['wrong'], sound_files['wrong'])
             print(f'\n残念! 正解は{self.ans_str}でした。')
             print(f'\n{self.DECO}\n')
             self.write_log()
