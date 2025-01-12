@@ -39,7 +39,7 @@ def read_all_file(file_path: str) -> list:
     with open(file_path, 'r', encoding='utf-8') as f:
         try:
             for line in f:
-                list_data.append(line.strip())
+                list_data.append(line.rstrip())
             return list_data
         except OSError as e:
             print('ファイルの読み込み中にエラーが発生しました。')
@@ -70,14 +70,27 @@ def add_log(file_path: str, data):
         f.truncate()
 
 
-def change_log(file_path: str, data):
-    """ ファイル内容の変更をする関数 """
+def change_username(file_path: str, data: str):
+    """ プレイするユーザの変更をする関数 """
     with open(file_path, 'r+') as f:
         try:
             log_data = json.load(f)
         except json.decoder.JSONDecodeError:
             log_data = []
         log_data['username'] = data
+        f.seek(0)
+        json.dump(log_data, f, indent=4)
+        f.truncate()
+
+
+def change_volume(file_path: str, data: float):
+    """ 音量の変更をする関数 """
+    with open(file_path, 'r+') as f:
+        try:
+            log_data = json.load(f)
+        except json.decoder.JSONDecodeError:
+            log_data = []
+        log_data['sound'] = data
         f.seek(0)
         json.dump(log_data, f, indent=4)
         f.truncate()
