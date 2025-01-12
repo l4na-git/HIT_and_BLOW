@@ -5,8 +5,8 @@ HIT&BLOWをPythonで作成したものです。
 ## 概要
 
 - HIT&BLOWは数字を当てるゲームです。
-- Pythonで作成しています。
 - 3桁と4桁のモードがあります。
+- CUIかGUIか実行する方法を選択できます。
 
 ## インストール方法と実行
 
@@ -25,42 +25,58 @@ pip install pygame
 - GUIで実行されます。
 ```bash
 python hitandblow.py -g
+python hitandblow.py --gui
 ```
 - CUIで実行されます。
 ```bash
 python hitandblow.py -c
+python hitandblow.py --cui
 ```
-
+- ヘルプが表示されます。
+```bash
+python hitandblow.py -h
+python hitandblow.py --help
+```
+※オプションが指定されていない場合はCUIで実行されます。
 ## ファイル構成
 ```
 .
-│  .gitignore
-│  hitandblow.py
-│  how_to.py
-│  index.txt  # 遊び方の説明
-│  main_menu.py  # メニュー表示
-│  message.py  # 正解、不正解に対してのアニメーション
-│  quiz.py  # ゲームの処理
-│  requirements.txt  # 依存関係
-│  sound.py  # 音を鳴らすための処理
-│  user_menu.py  # ユーザ管理メニュー
-├─audio  # 音源を保存
-├─conf
-│      how_to.txt  # 遊び方の説明
-│      now_use.json  # ゲーム起動中に使用
-├─display
-│      base.py  # 基底クラスを定義
-│      info.py  # 遊び方の画面
-│      main.py  # 起動時の画面
-│      mgenplus-1p-regular.ttf
-│      play.py  # ゲームする画面
-│      sound.py  # 音量調整する画面
-├─images  # GUI起動時に使用する画像
-├─log_data  # 遊んだ記録を保存
-└─utils
-      file_utils.py  # ファイル入出力に関する処理
-      keyboard_utils.py  # キーボードから入力された値の処理
-      log_utils.py  # ログを表示
-      user_utils.py  # ユーザ管理に関する処理
+├── README.md
+├── audio
+│   ├── challenge.mp3               # 挑戦回数を表示する際に再生する音源
+│   ├── count.mp3                   # カウントダウンする際に再生する音源
+│   ├── happy.mp3                   # 正解した際に再生する音源
+│   ├── keyboard.mp3                # 文字を表示する際に再生する音源
+│   └── sad.mp3                     # 不正解した際に再生する音源
+├── config
+│   ├── correct_message.txt         # 正解した際に表示するテキスト
+│   ├── help_message.txt            # ヘルプオプションが使用された際に表示するテキスト
+│   ├── how_to.txt                  # 遊び方を記述するテキスト
+│   ├── setting.json                # ユーザ、音量を保存するファイル
+│   └── wrong_message.txt           # 不正解した際に表示するテキスト
+├── console
+│   ├── how_to.py                   # 遊び方を表示
+│   ├── main_menu.py                # メインメニューを表示
+│   ├── message.py                  # 結果に応じてメッセージを表示
+│   ├── quiz.py                     # hit&blowの処理
+│   ├── sound.py                    # 音に関する処理
+│   └── user_menu.py                # ユーザメニューを表示
+├── display
+│   ├── base.py                     # 画面を描画するための基底クラス
+│   ├── how_to.py                   # 遊び方を表示する画面
+│   ├── main.py                     # 起動時に表示する画面
+│   ├── mgenplus-1p-regular.ttf     # フォントファイル
+│   ├── play.py                     # ゲームに挑戦するための画面
+│   └── sound.py                    # 音量を調整するための画面
+├── hitandblow.py                   # オプションに関する処理
+├── images                          # 画面を描画する際に使用する画像
+├── log_data                        # それぞれのユーザのログを保存
+│   └── guest.json
+├── requirements.txt                # 依存関係を記述
+└── utils
+    ├── file_utils.py               # ファイル操作に関する処理
+    ├── keyboard_utils.py           # 入力された値に対する処理
+    ├── log_utils.py                # ログファイルに関する処理
+    └── user_utils.py               # ユーザ管理に関する処理
 
 ```
