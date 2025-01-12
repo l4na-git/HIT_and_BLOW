@@ -1,4 +1,4 @@
-# ユーザを管理
+# ユーザメニューを表示
 from utils.keyboard_utils import input_int
 from utils.user_utils import create_user, delete_user, show_user, change_user
 import os
