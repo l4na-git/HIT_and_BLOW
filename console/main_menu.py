@@ -1,7 +1,7 @@
 # メニュー表示
 
 from console.quiz import Quiz
-from console.how_to import main
+from console.how_to import main as how_to_main
 from console import user_menu
 from console.sound import volume
 from utils.keyboard_utils import input_int
@@ -36,8 +36,6 @@ async def execute():
         # メニュー番号の機能を実行
         await execute_menu(num)
 
-        await asyncio.sleep(0.7)
-
 
 def print_username():
     """ ユーザ名を表示する関数 """
@@ -64,7 +62,7 @@ def print_menu():
 async def execute_menu(menu_no):
     """ メニュー番号の機能を実行する """
     if menu_no == MENU_HOW_TO:
-        await main()
+        how_to_main()
     elif menu_no == VOLUME_SETTING:
         volume()
     elif menu_no == USER_MENU:
