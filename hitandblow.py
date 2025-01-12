@@ -3,15 +3,14 @@ import sys
 import os
 import asyncio
 from display.main import DisplayMain
-from console.sound import set_file
 from console.main_menu import execute as cui_execute
-from utils.file_utils import read_all_file
+from utils.file_utils import read_all_file, change_username, change_volume
 
 
 def get_option():
     """ オプションを取得する関数 """
     DIR = os.path.dirname(__file__)
-    SEARCH_FILE_PATH = DIR + r'\conf\help_message.txt'
+    SEARCH_FILE_PATH = DIR + r'\config\help_message.txt'
     options = set()  # 取得したオプションを格納
     i = 1
     while i < len(sys.argv):
@@ -54,7 +53,9 @@ def execute(options):
     """ 取得したオプションをもとに実行する """
     if "cui" in options or "c" in options:  # CUIで実行
         print("Launching Hit & Blow in CUI mode...")
-        set_file()
+        file_path = os.path.join(os.path.dirname(__file__), 'config', 'setting.json')
+        change_username(file_path, 'guest')
+        change_volume(file_path, 0.3)
         asyncio.run(cui_execute())
     if "gui" in options or "g" in options:  # GUIで実行
         print("Launching Hit & Blow in GUI mode...")
