@@ -1,7 +1,7 @@
 # ユーザ管理の関連
 from utils.keyboard_utils import input_isalnum_ascii, input_boolean
 from utils.file_utils\
-    import write_file, search_file, delete_file, read_log, change_log
+    import write_file, search_file, delete_file, read_log, change_username
 from pathlib import Path
 import glob
 
@@ -12,12 +12,12 @@ SHOW_TITLE = '                            ユーザ一覧'
 CHANGE_TITLE = '                            ユーザ変更'
 
 LOG_PATH = Path('log_data/')
-NOW_USE_PATH = Path('conf/now_use.json')
+NOW_USE_PATH = Path('config/setting.json')
 
 
 def back_to_menu():
     """ メニューに戻る """
-    import user_menu
+    import console.user_menu as user_menu
     user_menu.execute()
 
 
@@ -59,13 +59,13 @@ def change_user():
     print(f'{DECO}\n')
     username = get_username()
     print(f'現在のユーザ: {username}')
-    change_username = input_isalnum_ascii('変更したいユーザの名前を入力してください(英数字のみ): ')
+    input_username = input_isalnum_ascii('変更したいユーザの名前を入力してください(英数字のみ): ')
     files = glob.glob(f'{LOG_PATH.resolve()}/*.json')
     for file in files:
         name = Path(file).stem
-        if name == change_username:
-            change_log(NOW_USE_PATH, change_username)
-            print(f'\n{change_username}に変更しました!')
+        if name == input_username:
+            change_username(NOW_USE_PATH, input_username)
+            print(f'\n{input_username}に変更しました!')
             print(f'\n{DECO}\n')
             return back_to_menu()
     print('[エラー!!] 存在しないユーザです')
