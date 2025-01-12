@@ -2,12 +2,11 @@
 from utils.keyboard_utils import input_int
 from utils.user_utils import create_user, delete_user, show_user, change_user
 import os
+import asyncio
 
 # 装飾とタイトル
 DECO = '*' * 70
 TITLE = '                            ユーザ管理'
-CREATE_TITLE = '                            ユーザ作成'
-DELETE_TITLE = '                            ユーザ削除'
 
 # メニュー番号
 CREATE_USER = 1  # ユーザ作成
@@ -30,6 +29,8 @@ async def execute():
 
         # メニュー番号の機能を実行
         await execute_menu(num)
+
+        await asyncio.sleep(0.7)
 
 
 def print_menu():
@@ -56,7 +57,7 @@ async def execute_menu(menu_no):
     elif menu_no == DELETE_USER:
         delete_user()
     elif menu_no == EXIT:
-        import main_menu
+        import console.main_menu as main_menu
         await main_menu.execute()
     else:
         print('[エラー!!] もう一度入力してください')
