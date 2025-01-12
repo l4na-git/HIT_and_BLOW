@@ -1,0 +1,23 @@
+Usage: python hitandblow.py [options]
+
+Description:
+    A "Hit & Blow" game application. You can play the game using the CUI (Command Line Interface) or GUI (Graphical User Interface).
+
+Features:
+    - Test your logic and deduction skills in this classic code-breaking game.
+    - Choose your preferred interface: CUI or GUI.
+
+Arguments:
+    No positional arguments are required.
+
+Options:
+    -h|--help           Display this help message and exit.
+    -c|--cui            Launch the game in Command Line Interface (CUI) mode.
+    -g|--gui            Launch the game in Graphical User Interface (GUI) mode.
+
+Examples:
+    Launch the game in CUI mode:
+        python hitandblow.py --cui
+
+    Launch the game in GUI mode:
+        python hitandblow.py --gui
