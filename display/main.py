@@ -1,7 +1,7 @@
 # 起動時の画面表示を行う
 
 from . import base
-from . import info
+from . import how_to
 from . import sound
 import pygame
 import sys
@@ -27,7 +27,7 @@ class DisplayMain(base.DisplayBase):
     def key_info_sound(self, event, info_button, sound_button):
         """ 遊び方と音量調整ボタンの処理 """
         if info_button.collidepoint(event.pos):
-            display = info.DisplayInfo('info_back.png')
+            display = how_to.DisplayInfo('info_back.png')
             display.main()
         if sound_button.collidepoint(event.pos):
             display = sound.DisplaySound('sound_back.png')
