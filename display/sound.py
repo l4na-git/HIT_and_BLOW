@@ -2,7 +2,7 @@
 
 import os
 import sys
-from . import info
+from . import how_to
 import pygame
 
 text_line = [
@@ -14,7 +14,7 @@ text_line = [
 ]
 
 
-class DisplaySound(info.DisplayInfo):
+class DisplaySound(how_to.DisplayInfo):
     def get_data(self):
         """ ファイルからデータを取得 """
         FONT_FILE_PATH = os.path.dirname(__file__) + r"\mgenplus-1p-regular.ttf"
