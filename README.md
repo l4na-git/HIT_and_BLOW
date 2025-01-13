@@ -62,14 +62,8 @@ python hitandblow.py --help
 │   ├── sound.py                    # 音に関する処理
 │   └── user_menu.py                # ユーザメニューを表示
 ├── display
-│   ├── base.py                     # 画面を描画するための基底クラス
-│   ├── how_to.py                   # 遊び方を表示する画面
-│   ├── main.py                     # 起動時に表示する画面
-│   ├── mgenplus-1p-regular.ttf     # フォントファイル
-│   ├── play.py                     # ゲームに挑戦するための画面
-│   └── sound.py                    # 音量を調整するための画面
+│   └── game.py                     # ゲーム画面を描画
 ├── hitandblow.py                   # オプションに関する処理
-├── images                          # 画面を描画する際に使用する画像
 ├── log_data                        # それぞれのユーザのログを保存
 │   └── guest.json
 ├── requirements.txt                # 依存関係を記述

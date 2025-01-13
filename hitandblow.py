@@ -2,7 +2,8 @@
 import sys
 import os
 import asyncio
-from display.main import DisplayMain
+import flet as ft
+from display.game import main as gui_main
 from console.main_menu import execute as cui_execute
 from utils.file_utils import read_all_file, change_username, change_volume
 
@@ -59,8 +60,7 @@ def execute(options):
         asyncio.run(cui_execute())
     if "gui" in options or "g" in options:  # GUIで実行
         print("Launching Hit & Blow in GUI mode...")
-        display = DisplayMain('root_back.png')
-        display.main()
+        ft.app(target=gui_main)
 
 
 if __name__ == '__main__':
