@@ -1,12 +1,15 @@
-# ユーザメニューを表示
+"""
+ユーザ管理のメニューを表示します
+"""
+import asyncio
+
 from utils.keyboard_utils import input_int
 from utils.user_utils import create_user, delete_user, show_user, change_user
-import os
-import asyncio
+from console.sound import print_with_sound
 
 # 装飾とタイトル
 DECO = '*' * 70
-TITLE = '                            ユーザ管理'
+TITLE = 'ユーザ管理'
 
 # メニュー番号
 CREATE_USER = 1  # ユーザ作成
@@ -15,29 +18,25 @@ CHANGE_USER = 3  # ユーザ変更
 DELETE_USER = 4  # ユーザ削除
 EXIT = 9  # 終了
 
-PATH = os.path.dirname(__file__) + r'\log_data\\'
+SLEEP_TIME = 0.7  # メニュー表示後の待機時間
 
 
-async def execute():
+async def main():
     """ メインの関数 """
     while True:
-        # ユーザメニューを表示
-        print_menu()
-
-        # メニュー番号の入力
+        show_menu()
         num = input_int('メニュー番号を入力してください: ')
-
-        # メニュー番号の機能を実行
-        await execute_menu(num)
-
-        await asyncio.sleep(0.7)
+        if await execute_menu(num) is False:
+            break
+        await asyncio.sleep(SLEEP_TIME)
 
 
-def print_menu():
+def show_menu():
     """ ユーザメニュー """
     print(DECO)
-    print(TITLE)
+    print(TITLE.center(65))
     print(f'{DECO}\n')
+    print_with_sound('ユーザに関する設定ができます!\n')
     print(f'{CREATE_USER}. ユーザ作成')
     print(f'{SHOW_USER}. ユーザ一覧')
     print(f'{CHANGE_USER}. ユーザ変更')
@@ -46,8 +45,15 @@ def print_menu():
     print(f'\n{DECO}\n')
 
 
-async def execute_menu(menu_no):
-    """ メニュー番号の機能を実行する """
+async def execute_menu(menu_no: int):
+    """ メニュー番号の機能を実行する
+
+    Args:
+        menu_no (int): ユーザが選択したメニュー番号
+
+    Returns:
+        bool: ユーザが終了を選択したらFalse
+    """
     if menu_no == CREATE_USER:
         create_user()
     elif menu_no == SHOW_USER:
@@ -57,11 +63,10 @@ async def execute_menu(menu_no):
     elif menu_no == DELETE_USER:
         delete_user()
     elif menu_no == EXIT:
-        import console.main_menu as main_menu
-        await main_menu.execute()
+        return False
     else:
-        print('[エラー!!] もう一度入力してください')
+        print_with_sound('[エラー!!] もう一度入力してください')
 
 
 if __name__ == '__main__':
-    execute()
+    main()

@@ -1,11 +1,14 @@
-# オプション実装
+"""
+このファイルはHit & Blowのゲームを起動します。
+Pygameがインストールされていることを確認してから実行してください。
+"""
 import sys
 import os
 import asyncio
-import flet as ft
-from display.game import main as gui_main
+# import flet as ft
+# from display.game import main as gui_main
 from console.main_menu import execute as cui_execute
-from utils.file_utils import read_all_file, change_username, change_volume
+from utils.file_utils import read_file, change_username, change_volume
 
 
 def get_option():
@@ -16,7 +19,7 @@ def get_option():
     i = 1
     while i < len(sys.argv):
         if sys.argv[i] in ["-h", "--help"]:
-            message_list = read_all_file(SEARCH_FILE_PATH)
+            message_list = read_file(SEARCH_FILE_PATH)
             print()
             for message in message_list:
                 print(message)
@@ -54,8 +57,6 @@ def execute(options):
     """ 取得したオプションをもとに実行する """
     if "cui" in options or "c" in options:  # CUIで実行
         print("Launching Hit & Blow in CUI mode...")
-        file_path = os.path.join(os.path.dirname(__file__), 'config', 'setting.json')
-        change_username(file_path, 'guest')
         change_volume(file_path, 0.3)
         asyncio.run(cui_execute())
     if "gui" in options or "g" in options:  # GUIで実行
@@ -65,4 +66,6 @@ def execute(options):
 
 if __name__ == '__main__':
     options = get_option()
+    file_path = os.path.join(os.path.dirname(__file__), 'config', 'setting.json')
+    change_username(file_path, 'guest')
     execute(options)

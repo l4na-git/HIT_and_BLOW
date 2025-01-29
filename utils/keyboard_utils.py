@@ -1,31 +1,51 @@
-# キーボードから入力された値に対しての処理
+"""
+キーボードから入力された値に対しての処理をします
+"""
+
 
 def input_int(prompt: str) -> int:
-    """ キーボードから整数を入力して返す """
+    """キーボードから整数を入力して返す
+
+    Args:
+        prompt (str): 入力時に表示するメッセージ
+
+    Returns:
+        int: 入力された整数
+    """
     while True:
         user_input = input(prompt)
         if user_input.isdigit():
-            break
+            return int(user_input)
         else:
             print('[エラー!!] 整数で入力してください')
 
-    return int(user_input)
-
 
 def input_isalnum_ascii(prompt: str) -> str:
-    """ キーボードから英数字を入力して返す """
+    """キーボードから英数字(ASCII)を入力して返す
+
+    Args:
+        prompt (str): 入力時に表示するメッセージ
+
+    Returns:
+        str: 入力された英数字
+    """
     while True:
         user_input = input(prompt).strip()
         if user_input.isalnum() and user_input.isascii():
-            break
+            return user_input
         else:
             print('[エラー!!] 英数字で入力してください')
 
-    return user_input
-
 
 def input_boolean(prompt: str) -> bool:
-    """ キーボードからyまたはnを入力して返す """
+    """キーボードからyまたはnを入力して返す
+
+    Args:
+        prompt (str): 入力時に表示するメッセージ
+
+    Returns:
+        bool: 入力された値がyの場合はTrue、nの場合はFalse
+    """
     y_inputs = ['y', 'ｙ']
     n_inputs = ['n', 'ｎ']
     while True:
@@ -37,19 +57,33 @@ def input_boolean(prompt: str) -> bool:
         print('[エラー!!] "y" または "n" を入力してください')
 
 
-def input_is_q() -> bool:
-    """ キーボードからQを入力して返す関数 """
+def input_exit_prompt(prompt: str) -> bool:
+    """キーボードからQを入力して返す
+
+    Args:
+        prompt (str): 入力時に表示するメッセージ
+
+    Returns:
+        bool: 入力された値がQの場合はTrue
+    """
     q_inputs = ['q', 'ｑ']
     while True:
-        user_input = input('戻るには"Q"を押してください: ').lower()
+        user_input = input(prompt).lower()
         if user_input in q_inputs:
             return True
         else:
             print('[エラー!!] 指定されたキーを入力してください')
 
 
-def input_volume(prompt) -> int:
-    """ キーボードから音量を入力して返す関数 """
+def input_volume(prompt: str) -> int:
+    """キーボードから音量を入力して返す
+
+    Args:
+        prompt (str): 入力時に表示するメッセージ
+
+    Returns:
+        int: 入力された音量
+    """
     while True:
         input_volume = input_int(prompt)
         if input_volume > 100:

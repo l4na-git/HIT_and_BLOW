@@ -1,17 +1,21 @@
-# メインメニューを表示
-from console.quiz import Quiz
+"""
+メインメニューを表示する
+"""
+import asyncio
+
+# from console.quiz import Quiz
+from console.game import QuizGame
 from console.how_to import main as how_to_main
 from console import user_menu
 from console.sound import volume
+from console.sound import print_with_sound
 from utils.keyboard_utils import input_int
 from utils.user_utils import get_username
 from utils import log_utils
-from utils import file_utils
-import asyncio
 
 # 装飾とタイトル
 DECO = '=' * 70
-TITLE = '                            Hit&Blow'
+TITLE = 'Hit&Blow'
 
 # メニュー番号
 MENU_HOW_TO = 1  # 遊び方
@@ -26,26 +30,24 @@ MENU_EXIT = 9  # 終了
 async def execute():
     """ メインの関数 """
     while True:
-        # メニューを表示
-        print_menu()
+        show_menu()
 
-        # メニュー番号の入力
         num = input_int('メニュー番号を入力してください: ')
 
-        # メニュー番号の機能を実行
-        await execute_menu(num)
+        if await execute_menu(num) is False:
+            exit()
 
 
 def print_username():
-    """ ユーザ名を表示する関数 """
+    """ ユーザ名を表示する """
     username = get_username()
-    print(f'こんにちは! {username}さん!!\n')
+    print_with_sound(f'こんにちは! {username}さん!!\n')
 
 
-def print_menu():
+def show_menu():
     """ メニューの表示をする関数 """
     print(DECO)
-    print(TITLE)
+    print(TITLE.center(65))
     print(f'{DECO}\n')
     print_username()
     print(f'{MENU_HOW_TO}. 遊び方')
@@ -58,28 +60,34 @@ def print_menu():
     print(f'\n{DECO}\n')
 
 
-async def execute_menu(menu_no):
-    """ メニュー番号の機能を実行する """
+async def execute_menu(menu_no: int) -> bool:
+    """ メニュー番号の機能を実行する
+
+    Args:
+        menu_no (int): ユーザが選択したメニュー番号
+
+    Returns:
+        bool: ユーザが終了を選択したらFalse
+    """
     if menu_no == MENU_HOW_TO:
         how_to_main()
     elif menu_no == VOLUME_SETTING:
         volume()
     elif menu_no == USER_MENU:
-        await user_menu.execute()
+        await user_menu.main()
     elif menu_no == SHOW_LOG:
-        log_utils.print_log(file_utils.read_log('log_data/guest.json'))
-        print('~' * 70)
+        log_utils.main()
     elif menu_no == MENU_3_DIGIT:
-        quiz_mode3 = Quiz(digit=3, max_challenge=10)
+        quiz_mode3 = QuizGame(digit=3, max_challenge=10)
         await quiz_mode3.main()
     elif menu_no == MENU_4_DIGIT:
-        quiz_mode4 = Quiz(digit=4, max_challenge=15)
+        quiz_mode4 = QuizGame(digit=4, max_challenge=15)
         await quiz_mode4.main()
     elif menu_no == MENU_EXIT:
-        print('遊んでくれてありがとう!またね！')
-        exit()
+        print_with_sound('遊んでくれてありがとう!またね！')
+        return False
     else:
-        print('[エラー!!] もう一度入力してください')
+        print_with_sound('[エラー!!] もう一度入力してください')
 
 
 if __name__ == '__main__':

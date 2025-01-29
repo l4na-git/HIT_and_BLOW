@@ -1,9 +1,12 @@
-# ゲームの説明
-from utils.keyboard_utils import input_is_q
-from utils.file_utils import read_all_file
-from console.sound import print_with_sound
+"""
+ゲームの遊び方を表示する
+"""
 from time import sleep
-import os
+from pathlib import Path
+
+from utils.file_utils import read_file
+from utils.keyboard_utils import input_exit_prompt
+from console.sound import print_with_sound
 
 
 # 定数の定義
@@ -11,29 +14,39 @@ DECO = '*' * 70
 DECO_CUT = '-' * 70
 TITLE = '                            遊び方'
 SLEEP_TIME = 0.3
-CONF_FILE_PATH = os.path.join(
-    os.path.dirname(__file__), '../config', 'how_to.txt')
+CONF_FILE_PATH = Path('config/how_to.txt').resolve()
 
 
-def print_how_to():
-    """ ゲームの遊び方を表示する関数 """
-    line_data = read_all_file(CONF_FILE_PATH)
-    print('\033[?25l', end='')  # カーソル消去
+def show_how_to():
+    """ゲームの遊び方を表示する"""
+    line_data = read_file(CONF_FILE_PATH)
+    hide_cursor()
     for line in line_data:
         sleep(SLEEP_TIME)
         print_with_sound(line)
-        print()
-    print('\033[?25h', end='')  # カーソル表示
+    show_cursor()
+
+
+def hide_cursor() -> None:
+    """カーソルを非表示にする"""
+    print('\033[?25l', end='')
+
+
+def show_cursor() -> None:
+    """カーソルを再表示する"""
+    print('\033[?25h', end='')
 
 
 def main():
-    """ メインの関数 """
+    """タイトル、ゲームの遊び方、終了方法を表示する"""
     print(f'\n{DECO}')
     print(TITLE)
     print(DECO)
-    print_how_to()
+    print()
+    show_how_to()
+    print()
     print(f'{DECO_CUT}\n')
-    input_is_q()  # ユーザがqを押すまで待機
+    input_exit_prompt('戻るには"Q"を押してください: ')
     print(f'\n{DECO}\n')
 
 
